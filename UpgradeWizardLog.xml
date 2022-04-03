@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_UpgradeWizard_Files\UpgradeWizardLog.xslt"?>
+<log>
+  <event>Get project references.</event>
+  <event action="Analyze" type="Success" name="Assembly References" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Aplicacion_Comercial.csproj" />
+  <event action="Analyze" type="Success" name="Assembly References" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="App.config" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\App.config" />
+  <event action="Analyze" type="Success" name="Adminitrador_Principal.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Admin_Control\Adminitrador_Principal.resx" />
+  <event action="Analyze" type="Success" name="Panel_Software.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Administracion_de_Panel_Software\Panel_Software.resx" />
+  <event action="Analyze" type="Success" name="Credito_por_Cobrar.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Aperturas_de_Credito\Credito_por_Cobrar.resx" />
+  <event action="Analyze" type="Success" name="Credito_por_Pagar.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Aperturas_de_Credito\Credito_por_Pagar.resx" />
+  <event action="Analyze" type="Success" name="Eleccion_Servidor_Remoto.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Asistente_de_Instalacion_Servidor\Eleccion_Servidor_Remoto.resx" />
+  <event action="Analyze" type="Success" name="Instalador_ServidorSQL.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Asistente_de_Instalacion_Servidor\Instalador_ServidorSQL.resx" />
+  <event action="Analyze" type="Success" name="Registro_Empresa.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Asistente_de_Instalacion_Servidor\Registro_Empresa.resx" />
+  <event action="Analyze" type="Success" name="Usuarios_Autorizados_al_Sistema.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Asistente_de_Instalacion_Servidor\Usuarios_Autorizados_al_Sistema.resx" />
+  <event action="Analyze" type="Success" name="Apertura_de_Caja.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\Apertura_de_Caja.resx" />
+  <event action="Analyze" type="Success" name="Cierre_de_Caja.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\Cierre_de_Caja.resx" />
+  <event action="Analyze" type="Success" name="CierreTurno.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\CierreTurno.resx" />
+  <event action="Analyze" type="Success" name="Control_de_Caja.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\Control_de_Caja.resx" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" name="Register Directives" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\FormatoCierreCaja.html" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\FormatoCierreCaja.html" />
+  <event action="Analyze" type="Success" name="FormatoCierreCaja.html" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\FormatoCierreCaja.html" />
+  <event action="Analyze" type="Success" name="Listado_Gastos_Ingresos.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Caja\Listado_Gastos_Ingresos.resx" />
+  <event action="Analyze" type="Success" name="Caja_Secundaria.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Cajas_Remotas\Caja_Secundaria.resx" />
+  <event action="Analyze" type="Success" name="Conexion_Secundaria.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Cajas_Remotas\Conexion_Secundaria.resx" />
+  <event action="Analyze" type="Success" name="Clientes.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Clientes_Proveedores\Clientes.resx" />
+  <event action="Analyze" type="Success" name="Proveedores.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Clientes_Proveedores\Proveedores.resx" />
+  <event action="Analyze" type="Success" name="Cobros.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Cobros\Cobros.resx" />
+  <event action="Analyze" type="Success" name="MediosCobros.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Cobros\MediosCobros.resx" />
+  <event action="Analyze" type="Success" name="Panel_Configuraciones.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Configuracion\Panel_Configuraciones.resx" />
+  <event action="Analyze" type="Success" name="Empresa_Confi.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Configuracion_Empresa\Empresa_Confi.resx" />
+  <event action="Analyze" type="Success" name="Crear_CopiasDB.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Copias_BaseDatos\Crear_CopiasDB.resx" />
+  <event action="Analyze" type="Success" name="GeneradoAutomatico.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Copias_BaseDatos\GeneradoAutomatico.resx" />
+  <event action="Analyze" type="Success" name="ConfigurarCorreoBase.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\CorreoBase\ConfigurarCorreoBase.resx" />
+  <event action="Analyze" type="Success" name="Ticket.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Diseñador_de_Comprabantes\Ticket.resx" />
+  <event action="Analyze" type="Success" name="Gastos.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Gastos_Varios\Gastos.resx" />
+  <event action="Analyze" type="Success" name="IngresosVarios.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Ingresos_Varios\IngresosVarios.resx" />
+  <event action="Analyze" type="Success" name="Inventario_Menu.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Inventario_Kardex\Inventario_Menu.resx" />
+  <event action="Analyze" type="Success" name="Licencias_Membresias.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Licencias_y_Membresias\Licencias_Membresias.resx" />
+  <event action="Analyze" type="Success" name="Login.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Logins\Login.resx" />
+  <event action="Analyze" type="Success" name="Notificaciones.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Notificaciones\Notificaciones.resx" />
+  <event action="Analyze" type="Success" name="Asistente_de_ImportacionExcel.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Productos\Asistente_de_ImportacionExcel.resx" />
+  <event action="Analyze" type="Success" name="Productos.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Productos\Productos.resx" />
+  <event action="Analyze" type="Success" name="TicketReporte.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_de_Comprobantes\TicketReporte.resx" />
+  <event action="Analyze" type="Success" name="TicketReport.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Inventario\TicketReport.resx" />
+  <event action="Analyze" type="Success" name="frmMovimientosBuscar.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\frmMovimientosBuscar.resx" />
+  <event action="Analyze" type="Success" name="frmMovimientosFiltros.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\frmMovimientosFiltros.resx" />
+  <event action="Analyze" type="Success" name="ReporteKardexMovimientos.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\ReporteKardexMovimientos.resx" />
+  <event action="Analyze" type="Success" name="ReporteMovimientoBuscar.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\ReporteMovimientoBuscar.resx" />
+  <event action="Analyze" type="Success" name="ReporteMovimientosFiltros.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\ReporteMovimientosFiltros.resx" />
+  <event action="Analyze" type="Success" name="Serializacion.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Serializacion_de_Comprobantes\Serializacion.resx" />
+  <event action="Analyze" type="Success" name="usuarios.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Usuarios_y_Permisos\usuarios.resx" />
+  <event action="Analyze" type="Success" name="Cantidad_Granel.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\VENTAS_MENU_PRINCIPAL\Cantidad_Granel.resx" />
+  <event action="Analyze" type="Success" name="Medios_De_Pago.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\VENTAS_MENU_PRINCIPAL\Medios_De_Pago.resx" />
+  <event action="Analyze" type="Success" name="Ventas_en_Espera.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\VENTAS_MENU_PRINCIPAL\Ventas_en_Espera.resx" />
+  <event action="Analyze" type="Success" name="Ventas_Menu_Principal.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\VENTAS_MENU_PRINCIPAL\Ventas_Menu_Principal.resx" />
+  <event action="Analyze" type="Success" name="Assembly References" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="packages.config" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\packages.config" />
+  <event action="Analyze" type="Success" name="Resources.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Properties\Resources.resx" />
+  <event action="Analyze" type="Success" name="Aplicacion_Comercial" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Aplicacion_Comercial.csproj" />
+  <event action="Analyze" type="Success" name="Aplicacion_Comercial" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial.sln" />
+  <event action="Backup" type="Success" name="Aplicacion_Comercial" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Aplicacion_Comercial.csproj" />
+  <event action="Upgrade" type="Success" name="Assembly References" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Aplicacion_Comercial.csproj" />
+  <event action="Upgrade" type="Success" name="TicketReporte.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_de_Comprobantes\TicketReporte.resx" />
+  <event action="Upgrade" type="Success" name="TicketReport.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Inventario\TicketReport.resx" />
+  <event action="Upgrade" type="Success" name="ReporteKardexMovimientos.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\ReporteKardexMovimientos.resx" />
+  <event action="Upgrade" type="Success" name="ReporteMovimientoBuscar.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\ReporteMovimientoBuscar.resx" />
+  <event action="Upgrade" type="Success" name="ReporteMovimientosFiltros.resx" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Formularios\Reportes_Kardex\Reportes_Kardex_Diseño\ReporteMovimientosFiltros.resx" />
+  <event action="Upgrade" type="Success" name="Aplicacion_Comercial" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial\Aplicacion_Comercial.csproj" />
+  <event action="Upgrade" type="Success" name="Aplicacion_Comercial" path="C:\Users\USER\Desktop\PuntoVenta\PuntoVenta\Aplicacion_Comercial\Aplicacion_Comercial.sln" />
+</log>
