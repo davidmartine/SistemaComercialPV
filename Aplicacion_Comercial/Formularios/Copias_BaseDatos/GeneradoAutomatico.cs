@@ -34,40 +34,6 @@ namespace Aplicacion_Comercial.Formularios.Copias_BaseDatos
             timerContador.Start();
 
         }
-
-        private void timerContador_Tick(object sender, EventArgs e)
-        {
-            Contador -= 1;
-            lblTiempo.Text =Convert.ToString(Contador);
-            if(Contador == 0)
-            {
-                Contador = 0;
-                timerContador.Stop();
-                Generar_copia();
-
-            }
-
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void Mostrar_empresa()
-        {
-            DataTable dt = new DataTable();
-            Datos.ObtenerDatos.mostrar_empresa(ref dt);
-            foreach (DataRow row in dt.Rows)
-            {
-                txtRuta.Text = row["Carpeta_para_Copias_de_Seguridad"].ToString();
-                cmbFrecuencia = row["Fecuencia_de_Copias"].ToString();
-
-                
-            }
-        }
-
         private void Generar_copia()
         {
             if (!string.IsNullOrEmpty(txtRuta.Text))
@@ -84,7 +50,6 @@ namespace Aplicacion_Comercial.Formularios.Copias_BaseDatos
                 txtRuta.Focus();
             }
         }
-
         private void ejecucion()
         {
             string MiCarpeta = "Copias_De_Seguridad_De_" + txtNombreSoft;
@@ -121,7 +86,39 @@ namespace Aplicacion_Comercial.Formularios.Copias_BaseDatos
                 MessageBox.Show(ex.Message);
             }
         }
+        private void Mostrar_empresa()
+        {
+            DataTable dt = new DataTable();
+            Datos.ObtenerDatos.mostrar_empresa(ref dt);
+            foreach (DataRow row in dt.Rows)
+            {
+                txtRuta.Text = row["Carpeta_para_Copias_de_Seguridad"].ToString();
+                cmbFrecuencia = row["Fecuencia_de_Copias"].ToString();
 
+
+            }
+        }
+        private void timerContador_Tick(object sender, EventArgs e)
+        {
+            Contador -= 1;
+            lblTiempo.Text =Convert.ToString(Contador);
+            if(Contador == 0)
+            {
+                Contador = 0;
+                timerContador.Stop();
+                Generar_copia();
+
+            }
+
+        }
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void GeneradoAutomatico_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Dispose();
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Acaba == true)
@@ -132,7 +129,6 @@ namespace Aplicacion_Comercial.Formularios.Copias_BaseDatos
 
             }
         }
-
         private void Editar_respaldo()
         {
             LEmpresa empresa = new LEmpresa();
@@ -148,15 +144,10 @@ namespace Aplicacion_Comercial.Formularios.Copias_BaseDatos
             }
 
         }
-
-        private void btnCancelar_Click_1(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
+            
 
-        private void GeneradoAutomatico_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.Dispose();
         }
     }
 }

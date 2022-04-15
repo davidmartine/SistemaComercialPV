@@ -38,7 +38,6 @@ namespace Aplicacion_Comercial.Formularios.Caja
             }
             lblTotalGastos.Text =Convert.ToString(TotalGasto);
         }
-
         private void sumar_ingresos()
         {
             double TotalIngreso = 0;
@@ -53,8 +52,8 @@ namespace Aplicacion_Comercial.Formularios.Caja
             DataTable dt = new DataTable();
             Datos.ObtenerDatos.mostrar_gastos_por_turno(ref dt, Id_Caja, FechaInicial, FechaFinal);
             datalistadoGastos.DataSource = dt;
-            Logica.BasesPCProgram.Multilinea(ref datalistadoGastos);
             datalistadoGastos.Columns[1].Visible = false;
+            Logica.BasesPCProgram.Multilinea(ref datalistadoGastos);
             sumar_gastos();
         }
 
@@ -63,11 +62,10 @@ namespace Aplicacion_Comercial.Formularios.Caja
             DataTable dt = new DataTable();
             Datos.ObtenerDatos.mostrar_ingresos_por_turno(ref dt, Id_Caja, FechaInicial, FechaFinal);
             datalistadoIngresos.DataSource = dt;
-            Logica.BasesPCProgram.Multilinea(ref datalistadoIngresos);
             datalistadoIngresos.Columns[1].Visible = false;
+            Logica.BasesPCProgram.Multilinea(ref datalistadoIngresos);
             sumar_ingresos();
         }
-
         private void mostrar_cierre_caja_pendiente()
         {
             DataTable dt = new DataTable();
@@ -78,7 +76,6 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 FechaInicial =Convert.ToDateTime(row["fechainicio"]);
             }
         }
-
         private void datalistadoGastos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if(e.ColumnIndex == datalistadoGastos.Columns["EliminarGasto"].Index)
@@ -99,7 +96,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
             if(e.ColumnIndex== datalistadoIngresos.Columns["EliminarIngreso"].Index)
             {
                 DialogResult result;
-                result = MessageBox.Show("¿ESTA SEGURO DE ELIMINAR ESTE INGRESO", "ELIMINAR INGRESO", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                result = MessageBox.Show("¿ESTA SEGURO DE ELIMINAR ESTE INGRESO?", "ELIMINAR INGRESO", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(result == DialogResult.OK)
                 {
                     int idIngreso =Convert.ToInt32(datalistadoIngresos.SelectedCells[1].Value);

@@ -19,6 +19,8 @@ namespace Aplicacion_Comercial.Formularios.Caja
             InitializeComponent();
         }
 
+        private int idCaja;
+
         private void Control_de_Caja_Load(object sender, EventArgs e)
         {
             dibujar_caja_principal();
@@ -64,7 +66,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
                     L1.TextAlign = ContentAlignment.MiddleCenter;
                     //
                     //LABEL NOMBRE DE USUARIO
-                    lblUsuario.Text = "Por: " + dr["Nombres_y_Apellidos"].ToString();
+                    lblUsuario.Text = "POR: " + dr["Nombres_y_Apellidos"].ToString();
                     lblUsuario.Dock = DockStyle.Bottom;
                     lblUsuario.AutoSize = false;
                     lblUsuario.TextAlign = ContentAlignment.MiddleCenter;
@@ -172,57 +174,9 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 MessageBox.Show(ex.Message);
             }
         }
-
-        int idCaja;
-        private void mieventoToolStripMenuEditar(System.Object sender,EventArgs e)
-        {
-            idCaja =Convert.ToInt32(((ToolStripMenuItem)sender).Tag);
-            txtCaja.Text = ((ToolStripMenuItem)sender).Name;
-            panel12.Visible = true;
-            panel12.Dock = DockStyle.Fill;
-            panelEdicionCaja.Location = new Point((panel12.Width - panelEdicionCaja.Width) / 2, (panel12.Height - panelEdicionCaja.Height) / 2);
-            txtCaja.SelectAll();
-            txtCaja.Focus();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            panel12.Visible = false;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            editar_caja();
-        }
-
-        private void editar_caja()
-        {
-            try
-            {
-                SqlConnection con = new SqlConnection();
-                con.ConnectionString = Conexiones.CADMaestra.conexion;
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd = new SqlCommand("Editar_Caja", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Id_Caja", idCaja);
-                cmd.Parameters.AddWithValue("@Descripcion", txtCaja.Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                panel12.Visible = false;
-                panel12.Dock = DockStyle.None;
-                dibujar_caja_principal();
-                dibujar_cajas_remotas();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void dibujar_cajas_remotas()
         {
-            flowLayoutPanel1.Controls.Clear(); 
+            flowLayoutPanel1.Controls.Clear();
             try
             {
                 SqlConnection con = new SqlConnection();
@@ -262,7 +216,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
                     L1.TextAlign = ContentAlignment.MiddleCenter;
                     //
                     //LABEL NOMBRE DE USUARIO
-                    lblUsuario.Text = "Por: " + dr["Nombres_y_Apellidos"].ToString();
+                    lblUsuario.Text = "POR: " + dr["Nombres_y_Apellidos"].ToString();
                     lblUsuario.Dock = DockStyle.Bottom;
                     lblUsuario.AutoSize = false;
                     lblUsuario.TextAlign = ContentAlignment.MiddleCenter;
@@ -307,11 +261,11 @@ namespace Aplicacion_Comercial.Formularios.Caja
                     ToolStripMenuItemEliminar.Text = "ELIMINAR";
                     ToolStripMenuItemEliminar.Tag = dr["Id_Caja"].ToString();
                     ToolStripMenuItemRestaurar.Text = "RESTAURAR";
-                    ToolStripMenuItemRestaurar.Tag= dr["Id_Caja"].ToString();
+                    ToolStripMenuItemRestaurar.Tag = dr["Id_Caja"].ToString();
 
 
                     MenuStrip.Items.Add(ToolStripMenuItem);
-                    
+
 
 
                     if (L2.Text == "RECIEN CREADA")
@@ -336,11 +290,11 @@ namespace Aplicacion_Comercial.Formularios.Caja
                         I1.BackgroundImage = Properties.Resources.PuntoGris;
                         L2.ForeColor = Color.DimGray;
                     }
-                    if(L2.Text !="CAJA ELIMINADA")
+                    if (L2.Text != "CAJA ELIMINADA")
                     {
                         ToolStripMenuItem.DropDownItems.Add(ToolStripMenuItemEditar);
                         ToolStripMenuItem.DropDownItems.Add(ToolStripMenuItemEliminar);
-                       
+
                     }
                     else
                     {
@@ -389,19 +343,28 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void mieventoToolStripMenuEliminar(System.Object sender,EventArgs e)
+        
+        private void mieventoToolStripMenuEditar(System.Object sender,EventArgs e)
+        {
+            idCaja =Convert.ToInt32(((ToolStripMenuItem)sender).Tag);
+            txtCaja.Text = ((ToolStripMenuItem)sender).Name;
+            panel12.Visible = true;
+            panel12.Dock = DockStyle.Fill;
+            panelEdicionCaja.Location = new Point((panel12.Width - panelEdicionCaja.Width) / 2, (panel12.Height - panelEdicionCaja.Height) / 2);
+            txtCaja.SelectAll();
+            txtCaja.Focus();
+        }
+        private void mieventoToolStripMenuEliminar(System.Object sender, EventArgs e)
         {
             DialogResult result;
-            result = MessageBox.Show("¿Desea eliminar esta caja?", "ELIMINADO REGISTRO DE CAJA", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if(result == DialogResult.OK)
+            result = MessageBox.Show("¿DESEA ELIMINAR ESTA CAJA?", "ELIMINADO REGISTRO DE CAJA", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
             {
                 idCaja = Convert.ToInt32(((ToolStripMenuItem)sender).Tag);
                 eliminar_caja();
                 dibujar_cajas_remotas();
             }
         }
-
         private void eliminar_caja()
         {
             try
@@ -416,19 +379,17 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void mieventoToolStripMenuRestaurar(System.Object sender,EventArgs e)
+        private void mieventoToolStripMenuRestaurar(System.Object sender, EventArgs e)
         {
 
             idCaja = Convert.ToInt32(((ToolStripMenuItem)sender).Tag);
             restaurar_cajas();
         }
-
         private void restaurar_cajas()
         {
             try
@@ -442,6 +403,43 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 cmd.Parameters.AddWithValue("@Id_Caja", idCaja);
                 cmd.ExecuteNonQuery();
                 con.Close();
+                dibujar_cajas_remotas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel12.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            editar_caja();
+        }
+
+        private void editar_caja()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Conexiones.CADMaestra.conexion;
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand("Editar_Caja", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id_Caja", idCaja);
+                cmd.Parameters.AddWithValue("@Descripcion", txtCaja.Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                panel12.Visible = false;
+                panel12.Dock = DockStyle.None;
+                dibujar_caja_principal();
                 dibujar_cajas_remotas();
             }
             catch(Exception ex)

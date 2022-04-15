@@ -46,25 +46,9 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 comprobar_si_hay_servidor_instalado_sql_normal();
             }
         }
-
-        private void comprobar_si_hay_servidor_instalado_sql_normal()
-        {
-            lblservidor.Text = ".";
-            ejecutar_script_eliminarbase_comprobacion_de_inicio();
-            ejecutar_script_crearbase_comprobacion_de_inicio();
-        }
-
-        private void centrar_panales()
-        {
-            nombre_del_equipo = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            Panel2.Location = new Point((Width - Panel2.Width) / 2, (Height - Panel2.Height) / 2);
-            Cursor = Cursors.WaitCursor;
-            panel8.Visible = false;
-            panel8.Dock = DockStyle.None;
-        }
         private void reemplazar()
         {
-            
+
             txtCrear_procedimientos.Text = txtCrear_procedimientos.Text.Replace("PuntoVenta", txtbasededatos.Text);
             txtEliminarBase.Text = txtEliminarBase.Text.Replace("PuntoVenta", txtbasededatos.Text);
             txtCrearUsuarioDb.Text = txtCrearUsuarioDb.Text.Replace("sysgetco", txtusuario.Text);
@@ -73,16 +57,26 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             //Adjuntando al texbox que contiene los procedimientos almacenados
             txtCrear_procedimientos.Text = txtCrear_procedimientos.Text + Environment.NewLine + txtCrearUsuarioDb.Text;
         }
-
+        private void centrar_panales()
+        {
+            nombre_del_equipo = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            Panel2.Location = new Point((Width - Panel2.Width) / 2, (Height - Panel2.Height) / 2);
+            Cursor = Cursors.WaitCursor;
+            panel8.Visible = false;
+            panel8.Dock = DockStyle.None;
+        }
         private void comprobar_si_ya_hay_servidor_instalado_sql_espress()
         {
             lblservidor.Text = @".\" + txtnombredeservicio.Text;
             ejecutar_script_eliminarbase_comprobacion_de_inicio();
             ejecutar_script_crearbase_comprobacion_de_inicio();
-
-
         }
-
+        private void comprobar_si_hay_servidor_instalado_sql_normal()
+        {
+            lblservidor.Text = ".";
+            ejecutar_script_eliminarbase_comprobacion_de_inicio();
+            ejecutar_script_crearbase_comprobacion_de_inicio();
+        }
         private void ejecutar_script_crearbase_comprobacion_de_inicio()
         {
             var con = new SqlConnection("Server=" + lblservidor.Text + "; " + "database=master;integrated security=yes");
@@ -146,6 +140,59 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 }
             }
         }
+        private void ejecutar_script_crear_procedimientos_almacenados_y_tablas()
+        {
+            ruta = Path.Combine(Directory.GetCurrentDirectory(), txtnombre_scrypt.Text + ".txt");
+            FileInfo info = new FileInfo(ruta);
+            StreamWriter writer;
+            try
+            {
+                if (File.Exists(ruta) == false)
+                {
+
+                    writer = File.CreateText(ruta);
+                    writer.WriteLine(txtCrear_procedimientos.Text);
+                    writer.Flush();
+                    writer.Close();
+                }
+                else if (File.Exists(ruta) == true)
+                {
+                    File.Delete(ruta);
+                    writer = File.CreateText(ruta);
+                    writer.WriteLine(txtCrear_procedimientos.Text);
+                    writer.Flush();
+                    writer.Close();
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            try
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = "sqlcmd";
+                process.StartInfo.Arguments = " -S " + lblservidor.Text + " -E -i" + txtnombre_scrypt.Text + ".txt";
+                process.Start();
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+        public void SavetoXML(object dbcnString)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("ConnectionString.xml");
+            XmlElement root = doc.DocumentElement;
+            root.Attributes[0].Value = Convert.ToString(dbcnString);
+            XmlTextWriter writer = new XmlTextWriter("ConnectionString.xml", null);
+            writer.Formatting = Formatting.Indented;
+            doc.Save(writer);
+            writer.Close();
+        }
 
         private void ejecutar_script_eliminarbase()
         {
@@ -170,62 +217,34 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 }
             }
         }
-
-        private void ejecutar_script_crear_procedimientos_almacenados_y_tablas() 
+        private void timer4_Tick(object sender, EventArgs e)
         {
-            ruta = Path.Combine(Directory.GetCurrentDirectory(), txtnombre_scrypt.Text + ".txt");
-            FileInfo info = new FileInfo(ruta);
-            StreamWriter writer;
-            try
+            timer2.Stop();
+            timer3.Stop();
+            milisegundo += 1;
+            mil3.Text = Convert.ToString(milisegundo);
+            if (milisegundo == 60)
             {
-                if(File.Exists(ruta) == false)
-                {
-                    
-                    writer = File.CreateText(ruta);
-                    writer.WriteLine(txtCrear_procedimientos.Text);
-                    writer.Flush();
-                    writer.Close();
-                }
-                else if (File.Exists(ruta) == true)
+                segundo += 1;
+                seg3.Text = Convert.ToString(segundo);
+                milisegundo = 0;
+            }
+            if (segundo == 15)
+            {
+                timer4.Stop();
+                try
                 {
                     File.Delete(ruta);
-                    writer = File.CreateText(ruta);
-                    writer.WriteLine(txtCrear_procedimientos.Text);
-                    writer.Flush();
-                    writer.Close();
+                }
+                catch (Exception)
+                {
 
                 }
-            }
-            catch(Exception)
-            {
-
-            }
-            try
-            {
-                Process process = new Process();
-                process.StartInfo.FileName = "sqlcmd";
-                process.StartInfo.Arguments = " -S " + lblservidor.Text + " -E -i" + txtnombre_scrypt.Text + ".txt";
-                process.Start();
-            }
-            catch (Exception)
-            {
-
+                this.Dispose();
+                Application.Restart();
             }
 
         }
-
-        public void SavetoXML(object dbcnString)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("ConnectionString.xml");
-            XmlElement root = doc.DocumentElement;
-            root.Attributes[0].Value = Convert.ToString(dbcnString);
-            XmlTextWriter writer = new XmlTextWriter("ConnectionString.xml", null);
-            writer.Formatting = Formatting.Indented;
-            doc.Save(writer);
-            writer.Close();
-        }
-
         private void ejecutar_script_eliminarbase_comprobacion_de_inicio()
         {
             string str;
@@ -250,36 +269,6 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             }
 
         }
-
-        private void timer4_Tick(object sender, EventArgs e)
-        {
-            timer2.Stop();
-            timer3.Stop();
-            milisegundo += 1;
-            mil3.Text = Convert.ToString(milisegundo);
-            if (milisegundo == 60) 
-            {
-                segundo += 1;
-                seg3.Text = Convert.ToString(segundo);
-                milisegundo = 0;
-            }
-            if(segundo == 15)
-            {
-                timer4.Stop();
-                try
-                {
-                    File.Delete(ruta);
-                }
-                catch(Exception)
-                {
-
-                }
-                this.Dispose();
-                Application.Restart();
-            }
-            
-        }
-
         private void btnInstalarServidor_Click(object sender, EventArgs e)
         {
             try
@@ -293,7 +282,7 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 

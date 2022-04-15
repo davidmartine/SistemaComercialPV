@@ -39,7 +39,6 @@ namespace Aplicacion_Comercial.Formularios.Cobros
             Datos.ObtenerDatos.mostrar_inicios_de_sesion(ref idUsuario);
 
         }
-
         private void Calcular_restante()
         {
             try
@@ -121,7 +120,19 @@ namespace Aplicacion_Comercial.Formularios.Cobros
         {
             Calcular_restante();
         }
-
+        private void btnAbonar_Click_1(object sender, EventArgs e)
+        {
+            MontoAbonado = EfectivoCalculado + Tarjeta;
+            if (MontoAbonado > 0)
+            {
+                Insertar_control_cobros();
+                Editar_saldo_cliente();
+            }
+            else
+            {
+                MessageBox.Show("ESPECIFIQUE UN MONTO A ABONAR");
+            }
+        }
         private void Insertar_control_cobros()
         {
             try
@@ -147,7 +158,6 @@ namespace Aplicacion_Comercial.Formularios.Cobros
 
             }
         }
-
         private void Editar_saldo_cliente()
         {
             LCliente cliente_parametros = new LCliente();
@@ -156,26 +166,10 @@ namespace Aplicacion_Comercial.Formularios.Cobros
             funcion.Editar_saldo_cliente(cliente_parametros, MontoAbonado);
 
         }
-
-        private void btnAbonar_Click_1(object sender, EventArgs e)
-        {
-            MontoAbonado = EfectivoCalculado + Tarjeta;
-            if (MontoAbonado > 0)
-            {
-                Insertar_control_cobros();
-                Editar_saldo_cliente();
-            }
-            else
-            {
-                MessageBox.Show("ESPECIFIQUE UN MONTO A ABONAR");
-            }
-        }
-
         private void txtEfectivo_KeyPress(object sender, KeyPressEventArgs e)
         {
             Logica.BasesPCProgram.separador_de_numeros(txtEfectivo, e);
         }
-
         private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
         {
             Logica.BasesPCProgram.separador_de_numeros(txtTarjeta, e);

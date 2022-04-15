@@ -22,7 +22,22 @@ namespace Aplicacion_Comercial.Formularios.CorreoBase
         {
 
         }
+        private void btnSincronizar_Click_1(object sender, EventArgs e)
+        {
+            bool Estado;
+            Estado = Logica.BasesPCProgram.enviarCorreo(emisor: txtCorreo.Text, password: txtPassword.Text, mensaje: "SINCRONIZACION CON SYSGETCO CREADA CORRECTAMENTE", asunto: "SINCRONIZACION CON SYSGETCO", destinatario: txtCorreo.Text, ruta: "-");
+            if (Estado == true)
+            {
+                Editar_correo_base();
+                MessageBox.Show("SINCRONIZACION CREADA CORRECTAMENTE", "SINCRONIZACION CORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Dispose();
+            }
+            else
+            {
+                MessageBox.Show("SINCRONIZACION FALLIDA,INTENTA NUEVAMENTE MIRA LAS INSTACCIONES COMO LO INDICA EL VIDEO", "SINCRONIZACION FALLIDA", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            }
+        }
         private void Editar_correo_base()
         {
             Logica.LCorreoBase correo_parametros = new Logica.LCorreoBase();
@@ -41,21 +56,6 @@ namespace Aplicacion_Comercial.Formularios.CorreoBase
 
         }
 
-        private void btnSincronizar_Click_1(object sender, EventArgs e)
-        {
-            bool Estado;
-            Estado = Logica.BasesPCProgram.enviarCorreo(emisor: txtCorreo.Text, password: txtPassword.Text, mensaje: "SINCRONIZACION CON SYSGETCO CREADA CORRECTAMENTE", asunto: "SINCRONIZACION CON SYSGETCO", destinatario: txtCorreo.Text, ruta: "-");
-            if (Estado == true)
-            {
-                Editar_correo_base();
-                MessageBox.Show("SINCRONIZACION CREADA CORRECTAMENTE", "SINCRONIZACION CORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Dispose();
-            }
-            else
-            {
-                MessageBox.Show("SINCRONIZACION FALLIDA,INTENTA NUEVAMENTE MIRA LAS INSTACCIONES COMO LO INDICA EL VIDEO", "SINCRONIZACION FALLIDA", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-        }
+        
     }
 }

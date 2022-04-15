@@ -25,14 +25,9 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
         {
             buscador_proveedor();
         }
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-           
-        }
-
         private void insertar_creditos()
         {
-            
+
             LCreditoPorPagar parametros = new LCreditoPorPagar();
             CADInsertarDatos funcion = new CADInsertarDatos();
             parametros.idProveedor = idProveedor;
@@ -46,24 +41,10 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
                 MessageBox.Show("REGISTRADO");
                 limpiar_textos();
                 buscador_proveedor();
-                
+
             }
 
         }
-
-        private void limpiar_textos()
-        {
-            txtSaldo.Clear();
-            txtDetalle.Clear();
-            txtProveedor.Clear();
-            idProveedor = 0;
-        }
-
-        private void txtProveedor_TextChanged(object sender, EventArgs e)
-        {
-            buscador_proveedor();
-        }
-
         private void buscador_proveedor()
         {
             DataTable dt = new DataTable();
@@ -77,7 +58,6 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
             datalistado.Columns[7].Visible = false;
             dibujar_panel_datalistado();
         }
-
         private void dibujar_panel_datalistado()
         {
             datalistado.Dock = DockStyle.Fill;
@@ -89,26 +69,13 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
             p.BringToFront();
 
         }
-
-        private void btnNuevoConcepto_Click(object sender, EventArgs e)
+        private void limpiar_textos()
         {
-            Formularios.Clientes_Proveedores.Proveedores frmproveedores = new Clientes_Proveedores.Proveedores();
-            frmproveedores.ShowDialog();
+            txtSaldo.Clear();
+            txtDetalle.Clear();
+            txtProveedor.Clear();
+            idProveedor = 0;
         }
-
-        private void datalistado_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            idProveedor =Convert.ToInt32(datalistado.SelectedCells[1].Value);
-            txtProveedor.Text = datalistado.SelectedCells[2].Value.ToString();
-            Controls.Remove(p);
-        }
-
-        private void txtProveedor_Click(object sender, EventArgs e)
-        {
-
-            txtProveedor.SelectAll();
-        }
-
         private void btnRegistrar_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtSaldo.Text))
@@ -130,10 +97,34 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
 
             }
         }
+        private void txtProveedor_TextChanged(object sender, EventArgs e)
+        {
+            buscador_proveedor();
+        }
+        private void btnNuevoConcepto_Click(object sender, EventArgs e)
+        {
+            Formularios.Clientes_Proveedores.Proveedores frmproveedores = new Clientes_Proveedores.Proveedores();
+            frmproveedores.ShowDialog();
+        }
+        private void datalistado_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idProveedor = Convert.ToInt32(datalistado.SelectedCells[1].Value);
+            txtProveedor.Text = datalistado.SelectedCells[2].Value.ToString();
+            Controls.Remove(p);
+        }
+        private void txtProveedor_Click(object sender, EventArgs e)
+        {
 
+            txtProveedor.SelectAll();
+        }
         private void txtSaldo_KeyPress(object sender, KeyPressEventArgs e)
         {
             Logica.BasesPCProgram.separador_de_numeros(txtSaldo, e);
         }
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+           
+        }
+      
     }
 }

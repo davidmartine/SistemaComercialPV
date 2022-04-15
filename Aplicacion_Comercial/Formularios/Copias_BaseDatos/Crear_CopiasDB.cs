@@ -64,9 +64,6 @@ namespace Aplicacion_Comercial.Formularios.Copias_BaseDatos
         {
             Obtner_ruta();
         }
-
-      
-
         private void Generar_copia()
         {
             if (!string.IsNullOrEmpty(txtRuta.Text))

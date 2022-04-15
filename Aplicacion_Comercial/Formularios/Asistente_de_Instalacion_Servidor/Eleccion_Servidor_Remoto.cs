@@ -13,11 +13,12 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
 {
     public partial class Eleccion_Servidor_Remoto : Form
     {
+        private string lblEstado_de_conexion;
+
         public Eleccion_Servidor_Remoto()
         {
             InitializeComponent();
         }
-
         private void Eleccion_Servidor_Remoto_Load(object sender, EventArgs e)
         {
             panel2.Location = new Point((Width - panel2.Width) / 2, (Height - panel2.Height) / 2);
@@ -32,8 +33,6 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             }
 
         }
-
-        string lblEstado_de_conexion;
         private void Listar()
         {
             try

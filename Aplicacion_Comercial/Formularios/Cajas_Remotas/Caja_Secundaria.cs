@@ -24,7 +24,17 @@ namespace Aplicacion_Comercial.Formularios.Cajas_Remotas
         {
             Logica.BasesPCProgram.obtener_serial_pc(ref lblSerialPC);
         }
-
+        private void btnGuardar_Click_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCaja.Text))
+            {
+                ingresar_caja();
+            }
+            else
+            {
+                MessageBox.Show("DATOS INCOMPLETOS");
+            }
+        }
         private void ingresar_caja()
         {
             try
@@ -53,7 +63,6 @@ namespace Aplicacion_Comercial.Formularios.Cajas_Remotas
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void insertar_inicios_sesion()
         {
             try
@@ -74,27 +83,13 @@ namespace Aplicacion_Comercial.Formularios.Cajas_Remotas
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnGuardar_Click_1(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtCaja.Text))
-            {
-                ingresar_caja();
-            }
-            else
-            {
-                MessageBox.Show("DATOS INCOMPLETOS");
-            }
-        }
-
         private void btnCancelar_Click_1(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

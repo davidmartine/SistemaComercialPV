@@ -26,6 +26,7 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
             buscador_cliente();
         }
 
+
         private void insertar_creditos()
         {
 
@@ -46,19 +47,10 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
             }
 
         }
-
-        private void limpiar_textos()
-        {
-            txtSaldo.Clear();
-            txtDetalle.Clear();
-            txtCliente.Clear();
-            idCliente = 0;
-        }
-
         private void buscador_cliente()
         {
             DataTable dt = new DataTable();
-            Datos.ObtenerDatos.buscar_cliente(ref dt,txtCliente.Text);
+            Datos.ObtenerDatos.buscar_cliente(ref dt, txtCliente.Text);
             datalistado.DataSource = dt;
             datalistado.Columns[1].Visible = false;
             datalistado.Columns[3].Visible = false;
@@ -68,7 +60,6 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
             datalistado.Columns[7].Visible = false;
             dibujar_panel_datalistado();
         }
-
         private void dibujar_panel_datalistado()
         {
             datalistado.Dock = DockStyle.Fill;
@@ -80,29 +71,17 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
             p.BringToFront();
 
         }
+        private void limpiar_textos()
+        {
+            txtSaldo.Clear();
+            txtDetalle.Clear();
+            txtCliente.Clear();
+            idCliente = 0;
+        }
 
         private void txtCliente_TextChanged(object sender, EventArgs e)
         {
             buscador_cliente();
-        }
-
-
-        private void btnNuevoConcepto_Click(object sender, EventArgs e)
-        {
-            Formularios.Clientes_Proveedores.Clientes frmclientes = new Clientes_Proveedores.Clientes();
-            frmclientes.ShowDialog();
-        }
-
-        private void datalistado_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            idCliente = Convert.ToInt32(datalistado.SelectedCells[1].Value);
-            txtCliente.Text = datalistado.SelectedCells[2].Value.ToString();
-            Controls.Remove(p);
-        }
-
-        private void txtCliente_Click(object sender, EventArgs e)
-        {
-            txtCliente.SelectAll();
         }
 
         private void btnRegistrar_Click_1(object sender, EventArgs e)
@@ -126,6 +105,27 @@ namespace Aplicacion_Comercial.Formularios.Aperturas_de_Credito
 
             }
         }
+
+
+        private void btnNuevoConcepto_Click(object sender, EventArgs e)
+        {
+            Formularios.Clientes_Proveedores.Clientes frmclientes = new Clientes_Proveedores.Clientes();
+            frmclientes.ShowDialog();
+        }
+
+        private void datalistado_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idCliente = Convert.ToInt32(datalistado.SelectedCells[1].Value);
+            txtCliente.Text = datalistado.SelectedCells[2].Value.ToString();
+            Controls.Remove(p);
+        }
+
+        private void txtCliente_Click(object sender, EventArgs e)
+        {
+            txtCliente.SelectAll();
+        }
+
+       
 
         private void txtSaldo_KeyPress(object sender, KeyPressEventArgs e)
         {

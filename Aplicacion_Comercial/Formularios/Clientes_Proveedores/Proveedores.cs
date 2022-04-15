@@ -28,12 +28,95 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
             panel3.Location = new Point((Width - panel3.Width) / 2, (Height - panel3.Height) / 2);
             //panelRegistro.BringToFront();
         }
+        private void insertar_proveedor()
+        {
+            LProveedor proveedor_parametros = new LProveedor();
+            Datos.CADInsertarDatos funcion = new Datos.CADInsertarDatos();
 
+            proveedor_parametros.Nombre = txtNombre.Text;
+            proveedor_parametros.Direccion = txtDireccion.Text;
+            proveedor_parametros.IdentificadorFiscal = txtNit.Text;
+            proveedor_parametros.Movil = txtTelCel.Text;
+            if (funcion.insertar_proveedor(proveedor_parametros) == true)
+            {
+                mostrar_proveedores();
+            }
+        }
+        private void mostrar_proveedores()
+        {
+            DataTable dt = new DataTable();
+            Datos.ObtenerDatos.mostrar_proveedores(ref dt);
+            datalistado.DataSource = dt;
+            panelRegistro.Visible = false;
+            pintar_datalistado();
+        }
+        private void actualizar_proveedores()
+        {
+            LProveedor proveedor_parametros = new LProveedor();
+            CADEditarDatos funcion = new CADEditarDatos();
+            proveedor_parametros.idProveedor = idProveedor;
+            proveedor_parametros.Nombre = txtNombre.Text;
+            proveedor_parametros.Direccion = txtDireccion.Text;
+            proveedor_parametros.IdentificadorFiscal = txtNit.Text;
+            proveedor_parametros.Movil = txtTelCel.Text;
+            if (funcion.editar_proveedores(proveedor_parametros) == true)
+            {
+                mostrar_proveedores();
+            }
+        }
+        private void eliminar_proveedor()
+        {
+            try
+            {
+                LProveedor proveedor_parametros = new LProveedor();
+                CADEliminarDatos funcion = new CADEliminarDatos();
+                proveedor_parametros.idProveedor = idProveedor;
+                if (funcion.eliminar_proveedor(proveedor_parametros) == true)
+                {
+                    mostrar_proveedores();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        private void restaurar_proveedor()
+        {
+            LProveedor proveedor_parametros = new LProveedor();
+            CADEditarDatos funcion = new CADEditarDatos();
+            proveedor_parametros.idProveedor = idProveedor;
+            if (funcion.restaurar_proveedor(proveedor_parametros) == true)
+            {
+                mostrar_proveedores();
+            }
+        }
+        private void buscardor_proveedor()
+        {
+            DataTable dt = new DataTable();
+            Datos.ObtenerDatos.buscar_proveedor(ref dt, txtbusca.Text);
+            datalistado.DataSource = dt;
+            pintar_datalistado();
+        }
+        private void pintar_datalistado()
+        {
+            Logica.BasesPCProgram.Multilinea(ref datalistado);
+            datalistado.Columns[2].Visible = false;
+            foreach (DataGridViewRow row in datalistado.Rows)
+            {
+                string Estado = Convert.ToString(row.Cells["Estado"].Value);
+                if (Estado == "ELIMINADO")
+                {
+                    row.DefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Strikeout | FontStyle.Bold);
+                    row.DefaultCellStyle.ForeColor = Color.Red;
+                }
+            }
+        }
         private void PictureBox2_Click(object sender, EventArgs e)
         {
             nuevo();
         }
-
         private void nuevo()
         {
             panelRegistro.Visible = true;
@@ -42,10 +125,7 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
             btnGuardarCambios.Visible = false;
             txtNombre.Focus();
             panelRegistro.Dock = DockStyle.Fill;
-
-
         }
-
         private void limpiar_textos()
         {
             txtNombre.Clear();
@@ -53,7 +133,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
             txtDireccion.Clear();
             txtNit.Clear();
         }
-
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtNombre.Text))
@@ -91,30 +170,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 txtNombre.Focus();
             }
         }
-        private void insertar_proveedor()
-        {
-            LProveedor proveedor_parametros = new LProveedor();
-            Datos.CADInsertarDatos funcion = new Datos.CADInsertarDatos();
-
-             proveedor_parametros.Nombre = txtNombre.Text;
-             proveedor_parametros.Direccion= txtDireccion.Text;
-             proveedor_parametros.IdentificadorFiscal= txtNit.Text;
-             proveedor_parametros.Movil= txtTelCel.Text;
-            if (funcion.insertar_proveedor(proveedor_parametros) == true)
-            {
-                mostrar_proveedores();
-            }
-        }
-
-        private void mostrar_proveedores()
-        {
-            DataTable dt = new DataTable();
-            Datos.ObtenerDatos.mostrar_proveedores(ref dt);
-            datalistado.DataSource = dt;
-            panelRegistro.Visible = false;
-            pintar_datalistado();
-        }
-
         private void datalistado_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if(e.ColumnIndex == datalistado.Columns["Editar"].Index)
@@ -137,26 +192,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 
             }
         }
-
-        private void eliminar_proveedor()
-        {
-            try
-            {
-                LProveedor proveedor_parametros = new LProveedor();
-                CADEliminarDatos funcion = new CADEliminarDatos();
-                proveedor_parametros.idProveedor = idProveedor;
-                if (funcion.eliminar_proveedor(proveedor_parametros) == true)
-                {
-                    mostrar_proveedores();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
-
         private void obtener_id_estado()
         {
             try
@@ -204,13 +239,16 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
             
             
         }
-
         private void ver_edicion_panel_registros()
         {
             panelRegistro.Visible = true;
             panelRegistro.Dock = DockStyle.Fill;
             btnGuardar.Visible = false;
             btnGuardarCambios.Visible = true;
+        }
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            panelRegistro.Visible = false;
         }
 
         private void btnGuardarCambios_Click_1(object sender, EventArgs e)
@@ -249,64 +287,9 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 txtNombre.Focus();
             }
         }
-
-        private void actualizar_proveedores()
-        {
-            LProveedor proveedor_parametros = new LProveedor();
-            CADEditarDatos funcion = new CADEditarDatos();
-            proveedor_parametros.idProveedor = idProveedor;
-            proveedor_parametros.Nombre = txtNombre.Text;
-            proveedor_parametros.Direccion = txtDireccion.Text;
-            proveedor_parametros.IdentificadorFiscal = txtNit.Text;
-            proveedor_parametros.Movil = txtTelCel.Text;
-            if (funcion.editar_proveedores(proveedor_parametros) == true)
-            {
-                mostrar_proveedores();
-            }
-        }
-
-        private void restaurar_proveedor()
-        {
-            LProveedor proveedor_parametros = new LProveedor();
-            CADEditarDatos funcion = new CADEditarDatos();
-            proveedor_parametros.idProveedor = idProveedor;
-            if (funcion.restaurar_proveedor(proveedor_parametros) == true)
-            {
-                mostrar_proveedores();
-            }
-        }
-
         private void txtbusca_TextChanged(object sender, EventArgs e)
         {
             buscardor_proveedor();
-        }
-
-        private void buscardor_proveedor()
-        {
-            DataTable dt = new DataTable();
-            Datos.ObtenerDatos.buscar_proveedor(ref dt, txtbusca.Text);
-            datalistado.DataSource = dt;
-            pintar_datalistado();
-        }
-
-        private void pintar_datalistado()
-        {
-            Logica.BasesPCProgram.Multilinea(ref datalistado);
-            datalistado.Columns[2].Visible = false;
-            foreach(DataGridViewRow row in datalistado.Rows)
-            {
-                string Estado =Convert.ToString(row.Cells["Estado"].Value);
-                if(Estado == "ELIMINADO")
-                {
-                    row.DefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Strikeout | FontStyle.Bold);
-                    row.DefaultCellStyle.ForeColor = Color.Red;
-                }
-            }
-        }
-
-        private void btnVolver_Click_1(object sender, EventArgs e)
-        {
-            panelRegistro.Visible = false;
         }
     }
 }

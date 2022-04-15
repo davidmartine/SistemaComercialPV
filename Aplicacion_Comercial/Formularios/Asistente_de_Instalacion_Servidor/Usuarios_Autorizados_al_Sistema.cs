@@ -35,11 +35,65 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             //    lblSerial.Text = getserial.Properties["SerialNumber"].Value.ToString();
             //    lblSerial.Text = lblSerial.Text.Trim();
             //}
-
-
-
         }
-    
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (txtNombreCajero.Text != "" && txtPassword.Text != "" && txtConfiPassword.Text != "")
+            {
+                if (txtPassword.Text == txtConfiPassword.Text)
+                {
+                    string contrasena_encryptada;
+                    contrasena_encryptada = Logica.BasesPCProgram.Encriptar(this.txtPassword.Text.Trim());
+                    try
+                    {
+                        SqlConnection con = new SqlConnection();
+                        con.ConnectionString = Conexiones.CADMaestra.conexion;
+                        con.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd = new SqlCommand("insertar_usuario", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@nombres", txtNombreCajero.Text);
+                        cmd.Parameters.AddWithValue("@Login", txtUsuario.Text);
+                        cmd.Parameters.AddWithValue("@Password", contrasena_encryptada);
+                        cmd.Parameters.AddWithValue("@Correo", Formularios.Asistente_de_Instalacion_Servidor.Registro_Empresa.Correo);
+                        cmd.Parameters.AddWithValue("@Rol", "ADMINISTRADOR (Control Total)");
+
+                        System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                        pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+
+                        cmd.Parameters.AddWithValue("@Icono", ms.GetBuffer());
+                        cmd.Parameters.AddWithValue("@Nombre_de_icono", "SYSGETCO");
+                        cmd.Parameters.AddWithValue("@Estado", "ACTIVO");
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                        insertar_licencia_de_prueba_de_30_dias();
+                        insertar_cliente_standar();
+                        insertar_grupo_productos_por_defecto();
+                        insertar_inicio_de_sesion();
+                        MessageBox.Show("RECUERDA QUE PARA INICIAR SESION TU USUARIO ES: "
+                       + txtUsuario.Text + " Y TU CONTRASEÑA ES: " + txtPassword.Text, " REGISTRO EXITOSO", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                        Dispose();
+                        //Application.Restart();
+                        Formularios.Logins.LOGIN frmLogin = new Logins.LOGIN();
+                        frmLogin.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("LAS CONTRASEÑAS NO COINCIDEN", "CONFIRMAR CONTRASEÑA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("FALTA INGRESAR DATOS", "ERROR DE DATOS", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            }
+        }
         private void insertar_licencia_de_prueba_de_30_dias()
         {
             DateTime today = DateTime.Now;
@@ -71,7 +125,7 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -96,7 +150,7 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -143,63 +197,6 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             }
         }
 
-        private void btnSiguiente_Click(object sender, EventArgs e)
-        {
-            if (txtNombreCajero.Text != "" && txtPassword.Text != "" && txtConfiPassword.Text != "")
-            {
-                if (txtPassword.Text == txtConfiPassword.Text)
-                {
-                    string contrasena_encryptada;
-                    contrasena_encryptada = Logica.BasesPCProgram.Encriptar(this.txtPassword.Text.Trim());
-                    try
-                    {
-                        SqlConnection con = new SqlConnection();
-                        con.ConnectionString = Conexiones.CADMaestra.conexion;
-                        con.Open();
-                        SqlCommand cmd = new SqlCommand();
-                        cmd = new SqlCommand("insertar_usuario", con);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@nombres", txtNombreCajero.Text);
-                        cmd.Parameters.AddWithValue("@Login", txtUsuario.Text);
-                        cmd.Parameters.AddWithValue("@Password", contrasena_encryptada);
-                        cmd.Parameters.AddWithValue("@Correo", Formularios.Asistente_de_Instalacion_Servidor.Registro_Empresa.Correo);
-                        cmd.Parameters.AddWithValue("@Rol", "ADMINISTRADOR (Control Total)");
-
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                        pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
-
-                        cmd.Parameters.AddWithValue("@Icono", ms.GetBuffer());
-                        cmd.Parameters.AddWithValue("@Nombre_de_icono", "SYSGETCO");
-                        cmd.Parameters.AddWithValue("@Estado", "ACTIVO");
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-
-                        insertar_licencia_de_prueba_de_30_dias();
-                        insertar_cliente_standar();
-                        insertar_grupo_productos_por_defecto();
-                        insertar_inicio_de_sesion();
-                        MessageBox.Show("Recuerda que para iniciar sesion tu USUARIO ES: "
-                       + txtUsuario.Text + " y tu PASSWORD ES: " + txtPassword.Text, " REGISTRO EXITOSO", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                        Dispose();
-                        //Application.Restart();
-                        Formularios.Logins.LOGIN frmLogin = new Logins.LOGIN();
-                        frmLogin.ShowDialog();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Las contraseñas no coinciden", "CONFIRMAR CONTRASEÑA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                }
-            }
-            else
-            {
-                MessageBox.Show("Falta ingresar datos", "ERROR", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-            }
-        }
+       
     }
 }

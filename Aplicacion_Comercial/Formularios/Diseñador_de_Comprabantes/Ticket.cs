@@ -84,15 +84,6 @@ namespace Aplicacion_Comercial.Formularios.Diseñador_de_Comprabantes
                 MessageBox.Show(ex.StackTrace);
             }
         }
-
-        private void btnTicket_Click(object sender, EventArgs e)
-        {
-            txtTipo = "TICKET NO FISCAL";
-            btnTicket.BackColor = Color.FromArgb(255, 204, 1);
-            btnFacturaBoleta.BackColor = Color.White;
-            txtAutorizacionFiscal.Visible = false;
-        }
-
         private void btnFacturaBoleta_Click(object sender, EventArgs e)
         {
             txtTipo = "FACTURA-BOLETA";
@@ -100,7 +91,13 @@ namespace Aplicacion_Comercial.Formularios.Diseñador_de_Comprabantes
             btnFacturaBoleta.BackColor = Color.FromArgb(255, 204, 1);
             txtAutorizacionFiscal.Visible = true;
         }
-
+        private void btnTicket_Click(object sender, EventArgs e)
+        {
+            txtTipo = "TICKET NO FISCAL";
+            btnTicket.BackColor = Color.FromArgb(255, 204, 1);
+            btnFacturaBoleta.BackColor = Color.White;
+            txtAutorizacionFiscal.Visible = false;
+        }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             openfiledialog.InitialDirectory = "";
@@ -114,12 +111,10 @@ namespace Aplicacion_Comercial.Formularios.Diseñador_de_Comprabantes
 
             }
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             guardar_ticket();
         }
-
         private void guardar_ticket()
         {
             try

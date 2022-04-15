@@ -42,8 +42,6 @@ namespace Aplicacion_Comercial.Formularios.Cajas_Remotas
             {
                 MessageBox.Show("INGRESA LA DIRECCION IP", "CONECTAR IP", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-
         }
 
         private void comprobar_conexion()
@@ -55,9 +53,6 @@ namespace Aplicacion_Comercial.Formularios.Cajas_Remotas
                 SqlCommand cmd = new SqlCommand("SELECT idUsuario FROM USUARIO2", connection);
                 Id = Convert.ToInt32(cmd.ExecuteScalar());
                 IndicadorConexion = "HAY CONEXION";
-
-
-
             }
             catch (Exception)
             {

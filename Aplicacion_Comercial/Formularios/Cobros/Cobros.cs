@@ -51,7 +51,6 @@ namespace Aplicacion_Comercial.Formularios.Cobros
             //panelRegistros.Visible = false;
 
         }
-
         private void datalistadoClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             idCliente =Convert.ToInt32(datalistadoClientes.SelectedCells[1].Value);
@@ -62,7 +61,6 @@ namespace Aplicacion_Comercial.Formularios.Cobros
             Mostrar_estado_cuenta_cliente();
            
         }
-
         private void Obtener_saldo()
         {
             lblTotalSaldo.Text = datalistadoClientes.SelectedCells[7].Value.ToString();
@@ -107,70 +105,10 @@ namespace Aplicacion_Comercial.Formularios.Cobros
             panelHistorial.Dock = DockStyle.None;
 
         }
-
         private void btnHistorial_Click(object sender, EventArgs e)
         {
             Mostrar_estado_cuenta_cliente();
         }
-
-        private void btnAbonar_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void Frmmedios_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Buscar_clientes();
-            Obtener_saldo();
-            Mostrar_control_cobros();
-        }
-
-        private void txtClienteSolicitante_Click(object sender, EventArgs e)
-        {
-            txtClienteSolicitante.SelectAll();
-
-        }
-
-        private void datalistadoMovimientos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if(e.ColumnIndex == datalistadoMovimientos.Columns["Eli"].Index)
-            {
-                DialogResult result;
-                result = MessageBox.Show("¿ESTA SEGURO DE ELIMINAR ESTE ABONO?", "ELIMINANDO REGISTRO", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if(result == DialogResult.OK)
-                {
-                    Aumentar_saldo_cliente();
-                }
-            }
-        }
-
-        private void Aumentar_saldo_cliente()
-        {
-            double Saldo;
-            Saldo =Convert.ToDouble(datalistadoMovimientos.SelectedCells[2].Value);
-            LCliente cliente_parametros = new LCliente();
-            CADEditarDatos funcion = new CADEditarDatos();
-            cliente_parametros.idCliente = idCliente;
-            if(funcion.Aumentar_saldo_cliente(cliente_parametros,Saldo) ==true)
-            {
-                Eliminar_control_cobros();
-            }
-
-        }
-
-        private void Eliminar_control_cobros()
-        {
-            LControlCobros cobros_parametros = new LControlCobros();
-            CADEliminarDatos funcion = new CADEliminarDatos();
-            cobros_parametros.idControlCobros =Convert.ToInt32(datalistadoMovimientos.SelectedCells[1].Value);
-            if (funcion.Eliminar_control_cobros(cobros_parametros) == true)
-            {
-                Buscar_clientes();
-            }
-
-        }
-
         private void btnAbonar_Click_1(object sender, EventArgs e)
         {
             if (Saldo > 0)
@@ -181,10 +119,61 @@ namespace Aplicacion_Comercial.Formularios.Cobros
             }
             else
             {
-                MessageBox.Show("EL SALDO DEL CLIENTE ACTUAL ES CERO");
+                MessageBox.Show("EL SALDO DEL CLIENTE ACTUAL ES CERO(0)");
             }
         }
+        private void Frmmedios_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Buscar_clientes();
+            Obtener_saldo();
+            Mostrar_control_cobros();
+        }
+        private void txtClienteSolicitante_Click(object sender, EventArgs e)
+        {
+            txtClienteSolicitante.SelectAll();
 
+        }
+        private void datalistadoMovimientos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == datalistadoMovimientos.Columns["Eli"].Index)
+            {
+                DialogResult result;
+                result = MessageBox.Show("¿ESTA SEGURO DE ELIMINAR ESTE ABONO?", "ELIMINANDO REGISTRO", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
+                {
+                    Aumentar_saldo_cliente();
+                }
+            }
+        }
+        private void Aumentar_saldo_cliente()
+        {
+            double Saldo;
+            Saldo = Convert.ToDouble(datalistadoMovimientos.SelectedCells[2].Value);
+            LCliente cliente_parametros = new LCliente();
+            CADEditarDatos funcion = new CADEditarDatos();
+            cliente_parametros.idCliente = idCliente;
+            if (funcion.Aumentar_saldo_cliente(cliente_parametros, Saldo) == true)
+            {
+                Eliminar_control_cobros();
+            }
+
+        }
+        private void Eliminar_control_cobros()
+        {
+            LControlCobros cobros_parametros = new LControlCobros();
+            CADEliminarDatos funcion = new CADEliminarDatos();
+            cobros_parametros.idControlCobros = Convert.ToInt32(datalistadoMovimientos.SelectedCells[1].Value);
+            if (funcion.Eliminar_control_cobros(cobros_parametros) == true)
+            {
+                Buscar_clientes();
+            }
+
+        }
+        private void btnAbonar_Click(object sender, EventArgs e)
+        {
+            
+            
+        }
        
     }
 }

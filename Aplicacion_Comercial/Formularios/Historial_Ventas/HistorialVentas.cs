@@ -104,7 +104,6 @@ namespace Aplicacion_Comercial.Formularios.Historial_Ventas
             Logica.BasesPCProgram.Multilinea(ref datalistadoDetalleVenta);
 
         }
-
         private void datalistadoDetalleVenta_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == datalistadoDetalleVenta.Columns["Devolver"].Index)
@@ -112,7 +111,6 @@ namespace Aplicacion_Comercial.Formularios.Historial_Ventas
                 obtener_datos_detalle();
             }
         }
-
         private void obtener_datos_detalle()
         {
             lblCantidadActual.Text = datalistadoDetalleVenta.SelectedCells[3].Value.ToString();
@@ -195,25 +193,25 @@ namespace Aplicacion_Comercial.Formularios.Historial_Ventas
                 MessageBox.Show("INGRESE UNA CANTIDAD A DEVOLVER","ERROR",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
             }
         }
-
-        private void aumentar_stock()
+        private void validar_paneles()
         {
-            LProductos productos = new LProductos();
+            if (TotalNuevo == 0)
+            {
+                panelBienvenida.Visible = false;
+                panelDetalle.Visible = false;
+                panelTicket.Visible = false;
+                pCancelado.Visible = true;
+                pCancelado.Dock = DockStyle.Fill;
+            }
+        }
+        private void editar_ventas()
+        {
+            LVentas ventas = new LVentas();
             CADEditarDatos datos = new CADEditarDatos();
-            productos.idProducto = idProducto;
-            productos.Stock = txtCantidadDevolver.Text;
-            datos.aumentar_stock(productos);
+            ventas.idVenta = idVenta;
+            ventas.MontoTotal = TotalNuevo;
+            datos.editar_ventas(ventas);
         }
-
-        private void aumentar_stock_detalle()
-        {
-            LProductos productos = new LProductos();
-            CADEditarDatos editardatos = new CADEditarDatos();
-            productos.idProducto = idProducto;
-            productos.Stock =txtCantidadDevolver.Text;
-            editardatos.aumentar_stock_detalle(productos);
-        }
-
         private void insertar_kardex_entrada()
         {
             LKardex kardex = new LKardex();
@@ -224,21 +222,26 @@ namespace Aplicacion_Comercial.Formularios.Historial_Ventas
             kardex.idProducto = idProducto;
             datos.insertar_kardex_entrada(kardex);
         }
-
-        private void editar_ventas()
+        private void aumentar_stock()
         {
-            LVentas ventas = new LVentas();
+            LProductos productos = new LProductos();
             CADEditarDatos datos = new CADEditarDatos();
-            ventas.idVenta = idVenta;
-            ventas.MontoTotal =TotalNuevo;
-            datos.editar_ventas(ventas);
+            productos.idProducto = idProducto;
+            productos.Stock = txtCantidadDevolver.Text;
+            datos.aumentar_stock(productos);
         }
-
+        private void aumentar_stock_detalle()
+        {
+            LProductos productos = new LProductos();
+            CADEditarDatos editardatos = new CADEditarDatos();
+            productos.idProducto = idProducto;
+            productos.Stock =txtCantidadDevolver.Text;
+            editardatos.aumentar_stock_detalle(productos);
+        }
         private void txtCantidadDevolver_TextChanged(object sender, EventArgs e)
         {
             calcular_nuevo_total();
         }
-
         private void calcular_nuevo_total()
         {
             try
@@ -253,19 +256,6 @@ namespace Aplicacion_Comercial.Formularios.Historial_Ventas
                
             }
         }
-
-        private void validar_paneles()
-        {
-            if(TotalNuevo == 0)
-            {
-                panelBienvenida.Visible = false;
-                panelDetalle.Visible = false;
-                panelTicket.Visible = false;
-                pCancelado.Visible = true;
-                pCancelado.Dock = DockStyle.Fill;
-            }
-        }
-
         private void btnEliminarVenta_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("¿ESTAS SEGURO DE ELIMINAR ESTA VENTA?", "ELIMINANDO REGISTROS", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -298,7 +288,6 @@ namespace Aplicacion_Comercial.Formularios.Historial_Ventas
             ventas.idVenta = idVenta;
             datos.eliminar_ventas(ventas);
         }
-
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
             convertir_total_en_letras();

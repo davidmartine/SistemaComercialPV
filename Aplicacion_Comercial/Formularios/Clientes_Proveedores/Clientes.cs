@@ -39,7 +39,15 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 mostrar_cliente();
             }
         }
+        private void mostrar_cliente()
+        {
+            DataTable dt = new DataTable();
+            Datos.ObtenerDatos.mostrar_cliente(ref dt);
+            datalistado.DataSource = dt;
+            panelRegistro.Visible = false;
+            pintar_datalistado();
 
+        }
         private void actualizar_cliente()
         {
             LCliente cliente_parametros = new LCliente();
@@ -54,17 +62,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 mostrar_cliente();
             }
         }
-
-        private void mostrar_cliente()
-        {
-            DataTable dt = new DataTable();
-            Datos.ObtenerDatos.mostrar_cliente(ref dt);
-            datalistado.DataSource = dt;
-            panelRegistro.Visible = false;
-            pintar_datalistado();
-            
-        }
-
         private void eliminar_cliente()
         {
             try
@@ -82,7 +79,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void restaurar_cliente()
         {
             LCliente cliente_parametros = new LCliente();
@@ -93,7 +89,13 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 mostrar_cliente();
             }
         }
-
+        private void buscar_cliente()
+        {
+            DataTable dt = new DataTable();
+            Datos.ObtenerDatos.buscar_cliente(ref dt, txtbusca.Text);
+            datalistado.DataSource = dt;
+            pintar_datalistado();
+        }
         private void pintar_datalistado()
         {
             Logica.BasesPCProgram.Multilinea(ref datalistado);
@@ -108,15 +110,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
                 }
             }
         }
-
-        private void buscar_cliente()
-        {
-            DataTable dt = new DataTable();
-            Datos.ObtenerDatos.buscar_cliente(ref dt, txtbusca.Text);
-            datalistado.DataSource = dt;
-            pintar_datalistado();
-        }
-
         private void PictureBox2_Click(object sender, EventArgs e)
         {
             nuevo();
@@ -139,6 +132,42 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
             txtDireccion.Clear();
             txtNit.Clear();
 
+        }
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtNombre.Text))
+            {
+                if (!string.IsNullOrEmpty(txtTelCel.Text))
+                {
+                    if (!string.IsNullOrEmpty(txtDireccion.Text))
+                    {
+                        if (!string.IsNullOrEmpty(txtNit.Text))
+                        {
+                            insertar_cliente();
+                        }
+                        else
+                        {
+                            MessageBox.Show("EL CAMPO DE NUMERO DE IDENTIFICACION ES OBLIGATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtNit.Focus();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("EL CAMPO DIRECCION ES OBLIGATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtDireccion.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("EL CAMPO NUMERO DE TELEFONO/MOVIL ES OBLIATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtTelCel.Focus();
+                }
+            }
+            else
+            {
+                MessageBox.Show("EL CAMPO NOMBRE ES OBLIGATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtNombre.Focus();
+            }
         }
         private void datalistado_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -209,7 +238,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
             }
            
         }
-
         private void ver_edicion_panel_registro()
         {
             panelRegistro.Visible = true;
@@ -221,46 +249,6 @@ namespace Aplicacion_Comercial.Formularios.Clientes_Proveedores
         {
             buscar_cliente();
         }
-
-        
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtNombre.Text))
-            {
-                if (!string.IsNullOrEmpty(txtTelCel.Text))
-                {
-                    if (!string.IsNullOrEmpty(txtDireccion.Text))
-                    {
-                        if (!string.IsNullOrEmpty(txtNit.Text))
-                        {
-                            insertar_cliente();
-                        }
-                        else
-                        {
-                            MessageBox.Show("EL CAMPO DE NUMERO DE IDENTIFICACION ES OBLIGATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtNit.Focus();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("EL CAMPO DIRECCION ES OBLIGATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        txtDireccion.Focus();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("EL CAMPO NUMERO DE TELEFONO/MOVIL ES OBLIATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    txtTelCel.Focus();
-                }
-            }
-            else
-            {
-                MessageBox.Show("EL CAMPO NOMBRE ES OBLIGATORIO", "CAMPO OBLIGATORIO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtNombre.Focus();
-            }
-        }
-
         private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtNombre.Text))

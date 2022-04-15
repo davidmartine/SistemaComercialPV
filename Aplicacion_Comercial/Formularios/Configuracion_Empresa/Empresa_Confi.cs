@@ -15,6 +15,8 @@ namespace Aplicacion_Comercial.Formularios.Configuracion_Empresa
 {
     public partial class Empresa_Confi : Form
     {
+        private string ValidarImpuestos;
+        private string ModoBusqueda;
         public Empresa_Confi()
         {
             InitializeComponent();
@@ -26,25 +28,49 @@ namespace Aplicacion_Comercial.Formularios.Configuracion_Empresa
             mostrar();
             obtener_datos();
         }
-
-        private bool validar_email(string email)
+        private void obtener_datos()
         {
-            //return Regex.IsMatch(email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-            //    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
-            //    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
-            return Regex.IsMatch(email,@"[a-zA-Z0-9]\d{2}[a-zA-Z0-9](-\d{3}){2}[A-Za-z0-9]$");
+            try
+            {
+                txtNombreEmpresa.Text = datalistado.SelectedCells[2].Value.ToString();
+                Imagenempresa.BackgroundImage = null;
+                byte[] b = (Byte[])datalistado.SelectedCells[1].Value;
+                MemoryStream ms = new MemoryStream(b);
+                Imagenempresa.Image = Image.FromStream(ms);
+                txtPais.Text = datalistado.SelectedCells[13].Value.ToString();
+                txtMoneda.Text = datalistado.SelectedCells[4].Value.ToString();
+                ValidarImpuestos = datalistado.SelectedCells[9].Value.ToString();
+                if (ValidarImpuestos == "SI")
+                {
+                    //si.Checked = true;
+                    panelImpuesto.Visible = true;
+                }
+                if (ValidarImpuestos == "NO")
+                {
+                    //no.Checked = true;
+                    panelImpuesto.Visible = false;
+                }
+                txtPorcentaje.Text = datalistado.SelectedCells[6].Value.ToString();
+                txtImpuesto.Text = datalistado.SelectedCells[7].Value.ToString();
+                ModoBusqueda = datalistado.SelectedCells[8].Value.ToString();
+                if (ModoBusqueda == "LECTORA")
+                {
+                    txtConLectora.Checked = true;
+                    txtTeclado.Checked = false;
+                }
+                if (ModoBusqueda == "TECLADO")
+                {
+                    txtTeclado.Checked = true;
+                    txtConLectora.Checked = false;
+                }
+                txtRuta.Text = datalistado.SelectedCells[11].Value.ToString();
+                txtCorreo.Text = datalistado.SelectedCells[10].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-
-        private void txtPais_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            txtMoneda.SelectedIndex = txtPais.SelectedIndex;
-        }
-
-        private void txtMoneda_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            txtPais.SelectedIndex = txtMoneda.SelectedIndex;
-        }
-
         private void mostrar()
         {
             try
@@ -59,154 +85,29 @@ namespace Aplicacion_Comercial.Formularios.Configuracion_Empresa
                 datalistado.DataSource = dt;
                 con.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        string ValidarImpuestos;
-        string ModoBusqueda;
-        private void obtener_datos()
+        private bool validar_email(string email)
         {
-            try
-            {
-                txtNombreEmpresa.Text = datalistado.SelectedCells[2].Value.ToString();
-                Imagenempresa.BackgroundImage = null;
-                byte[] b = (Byte[])datalistado.SelectedCells[1].Value;
-                MemoryStream ms = new MemoryStream(b);
-                Imagenempresa.Image = Image.FromStream(ms);
-                txtPais.Text = datalistado.SelectedCells[13].Value.ToString();
-                txtMoneda.Text = datalistado.SelectedCells[4].Value.ToString();
-                ValidarImpuestos = datalistado.SelectedCells[9].Value.ToString();
-                if(ValidarImpuestos == "SI")
-                {
-                    //si.Checked = true;
-                    panelImpuesto.Visible = true;
-                }
-                if(ValidarImpuestos == "NO")
-                {
-                    //no.Checked = true;
-                    panelImpuesto.Visible = false;
-                }
-                txtPorcentaje.Text = datalistado.SelectedCells[6].Value.ToString();
-                txtImpuesto.Text = datalistado.SelectedCells[7].Value.ToString();
-                ModoBusqueda = datalistado.SelectedCells[8].Value.ToString();
-                if(ModoBusqueda == "LECTORA")
-                {
-                    txtConLectora.Checked = true;
-                    txtTeclado.Checked = false;
-                }
-                else
-                {
-                    txtTeclado.Checked = true;
-                    txtConLectora.Checked = false;
-                }
-                txtRuta.Text = datalistado.SelectedCells[11].Value.ToString();
-                txtCorreo.Text = datalistado.SelectedCells[10].Value.ToString();
-
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //return Regex.IsMatch(email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+            //    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+            //    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            return Regex.IsMatch(email,@"[a-zA-Z0-9]\d{2}[a-zA-Z0-9](-\d{3}){2}[A-Za-z0-9]$");
         }
-        private void txtConLectora_CheckedChanged(object sender, EventArgs e)
-        {
-            if(txtConLectora.Checked == true)
-            {
-                txtTeclado.Checked = false;
-            }
-            else
-            {
-               txtTeclado.Checked=true;
-            }
-        }
-
-        private void txtTeclado_CheckedChanged(object sender, EventArgs e)
-        {
-            if(txtTeclado.Checked == true)
-            {
-                txtConLectora.Checked = false;
-            }
-            else
-            {
-                txtConLectora.Checked = true;
-            }
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-            obterner_ruta();
-        }
-
-        private void obterner_ruta()
-        {
-            if(folderBrowserDialog1.ShowDialog()== DialogResult.OK)
-            {
-                //txtRuta.Text = folderBrowserDialog1.SelectedPath;
-                string ruta = folderBrowserDialog1.SelectedPath;
-                if (ruta.Contains(@"C:\"))
-                {
-                    MessageBox.Show("Seleccione un disco diferente al C", "RUTA INVALIDA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                }
-                else
-                {
-                    txtRuta.Text = folderBrowserDialog1.SelectedPath;
-                }
-            }
-        }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            obterner_ruta();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void lblEditarLogo_Click_1(object sender, EventArgs e)
-        {
-            dlg.InitialDirectory = "";
-            dlg.Filter = "Imagenes|*.jpg;*.png";
-            dlg.FilterIndex = 2;
-            dlg.Title = "CARGADOR DE IMAGENES";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                Imagenempresa.BackgroundImage = null;
-                Imagenempresa.Image = new Bitmap(dlg.FileName);
-                Imagenempresa.SizeMode = PictureBoxSizeMode.Zoom;
-
-            }
-        }
-
-        private void Swsn_CheckedChanged(object sender, EventArgs e)
-        {
-            if(Swsn.Checked == true)
-            {
-                panelImpuesto.Visible = true;
-
-            }
-            else
-            {
-                panelImpuesto.Visible = false;
-            }
-        }
-
         private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
             if (validar_email(txtCorreo.Text))
             {
-                MessageBox.Show("Direccion de correo no valida,el correo debe de tener el formato: nombre@dominio.com," + "por favor seleccione un correo valido", "VALIDAR CORREO", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("DIRECCION DE CORREO NO VALIDA,EL CORREO DEBE DE TENER EL FORMATO: nombre@DOMINIO.COM," + "POR FAVOR SELECCIONE UN CORREO VALIDO", "VALIDAR CORREO", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtCorreo.Focus();
                 txtCorreo.SelectAll();
             }
             else
             {
-                if (txtNombreEmpresa.Text != "")
+                if (!string.IsNullOrEmpty(txtNombreEmpresa.Text))
                 {
                     try
                     {
@@ -259,7 +160,96 @@ namespace Aplicacion_Comercial.Formularios.Configuracion_Empresa
                 }
             }
         }
+        private void Swsn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Swsn.Checked == false)
+            {
+                panelImpuesto.Visible = false;
 
-        
+            }
+            else
+            {
+                panelImpuesto.Visible = true;
+            }
+        }
+        private void txtConLectora_CheckedChanged(object sender, EventArgs e)
+        {
+            if (txtConLectora.Checked == true)
+            {
+                txtTeclado.Checked = false;
+            }
+            else
+            {
+                txtTeclado.Checked = true;
+            }
+        }
+        private void txtTeclado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (txtTeclado.Checked == true)
+            {
+                txtConLectora.Checked = false;
+            }
+            else
+            {
+                txtConLectora.Checked = true;
+            }
+        }
+        private void txtPais_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            txtMoneda.SelectedIndex = txtPais.SelectedIndex;
+        }
+
+        private void txtMoneda_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtPais.SelectedIndex = txtMoneda.SelectedIndex;
+        }
+        private void lblEditarLogo_Click_1(object sender, EventArgs e)
+        {
+            dlg.InitialDirectory = "";
+            dlg.Filter = "Imagenes|*.jpg;*.png";
+            dlg.FilterIndex = 2;
+            dlg.Title = "CARGADOR DE IMAGENES";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                Imagenempresa.BackgroundImage = null;
+                Imagenempresa.Image = new Bitmap(dlg.FileName);
+                Imagenempresa.SizeMode = PictureBoxSizeMode.Zoom;
+
+            }
+        }
+        private void label8_Click(object sender, EventArgs e)
+        {
+            obterner_ruta();
+        }
+
+        private void obterner_ruta()
+        {
+            string ruta = folderBrowserDialog1.SelectedPath;
+            txtRuta.Text = folderBrowserDialog1.SelectedPath;
+            //if (folderBrowserDialog1.ShowDialog()== DialogResult.OK)
+            //{
+            //    //txtRuta.Text = folderBrowserDialog1.SelectedPath;
+            //    string ruta = folderBrowserDialog1.SelectedPath;
+            //    if (ruta.Contains(@"C:\"))
+            //    {
+            //        MessageBox.Show("Seleccione un disco diferente al C", "RUTA INVALIDA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            //    }
+            //    else
+            //    {
+            //        txtRuta.Text = folderBrowserDialog1.SelectedPath;
+            //    }
+            //}
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            obterner_ruta();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

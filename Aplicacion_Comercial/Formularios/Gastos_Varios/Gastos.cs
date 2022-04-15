@@ -26,9 +26,6 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
             limpiar_incio();
             Datos.ObtenerDatos.obtener_id_caja_por_serial(ref Id_Caja);
         }
-
-        
-
         private void limpiar_incio()
         {
             panelConceptos.Visible = false;
@@ -55,13 +52,11 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
             datalistadoConceptos.BringToFront();
             buscador_de_conceptos();
         }
-
-        private void btnGuardarConceptos_Click(object sender, EventArgs e)
+        private void txtConcepto_TextChanged(object sender, EventArgs e)
         {
-         
-           
-        }
+            buscador_de_conceptos();
 
+        }
         private void buscador_de_conceptos()
         {
             DataTable dt = new DataTable();
@@ -71,39 +66,14 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
             Logica.BasesPCProgram.Multilinea(ref datalistadoConceptos);
 
         }
-
-        private void btnNuevoConcepto_Click(object sender, EventArgs e)
-        {
-
-            mostrar_panel_conceptos();
-            btnGuardarConceptos.Visible = true;
-            btnGuardarCambiosConceptos.Visible = false;
-            txtDescripcionConcepto.Clear();
-        }
-
-        private void mostrar_panel_conceptos()
-        {
-            panelConceptos.Visible = true;
-            panelConceptos.Dock = DockStyle.Fill;
-            panel7.Visible = false;
-            panelConceptos.BringToFront();
-            
-        }
-
-        private void txtConcepto_TextChanged(object sender, EventArgs e)
-        {
-            buscador_de_conceptos();
-
-        }
-
         private void datalistadoConceptos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                idConcepto =Convert.ToInt32(datalistadoConceptos.SelectedCells[1].Value);
+                idConcepto = Convert.ToInt32(datalistadoConceptos.SelectedCells[1].Value);
                 txtBuscarConcepto.Text = datalistadoConceptos.SelectedCells[2].Value.ToString();
                 datalistadoConceptos.Visible = false;
-                if(e.ColumnIndex == datalistadoConceptos.Columns["Editar"].Index)
+                if (e.ColumnIndex == datalistadoConceptos.Columns["Editar"].Index)
                 {
                     mostrar_panel_conceptos();
                     btnGuardarCambiosConceptos.Visible = true;
@@ -117,10 +87,9 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
                 MessageBox.Show(ex.StackTrace);
             }
         }
-
         private void chbComprobante_CheckedChanged(object sender, EventArgs e)
         {
-            if(chbComprobante.Checked == true)
+            if (chbComprobante.Checked == true)
             {
                 panelComprobante.Visible = false;
             }
@@ -129,10 +98,9 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
                 panelComprobante.Visible = true;
             }
         }
-
         private void rellenar_campos_vacios()
         {
-            if(string.IsNullOrEmpty(txtDetalle.Text))
+            if (string.IsNullOrEmpty(txtDetalle.Text))
             {
                 txtDetalle.Text = "SIN DETALLAR";
             }
@@ -145,23 +113,6 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
                 txtNumeroComprobante.Text = "-";
             }
         }
-        private void txtConcepto_Click(object sender, EventArgs e)
-        {
-            txtBuscarConcepto.SelectAll();
-            mostrar_datalistadoconceptos();
-        }
-        private void ocultar_panel_conceptos()
-        {
-            panelConceptos.Visible = false;
-            panelConceptos.Dock = DockStyle.None;
-            panel7.Visible = true;
-        }
-
-        private void btnVolver_Click_1(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
         private void btnGuardarRegistros_Click_1(object sender, EventArgs e)
         {
             rellenar_campos_vacios();
@@ -176,13 +127,22 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
 
             }
         }
-
+        private void txtConcepto_Click(object sender, EventArgs e)
+        {
+            txtBuscarConcepto.SelectAll();
+            mostrar_datalistadoconceptos();
+        }
+        private void ocultar_panel_conceptos()
+        {
+            panelConceptos.Visible = false;
+            panelConceptos.Dock = DockStyle.None;
+            panel7.Visible = true;
+        }
         private void btnVolvera_Click(object sender, EventArgs e)
         {
             ocultar_panel_conceptos();
             //mostrar_datalistadoconceptos();
         }
-
         private void btnGuardarCambiosConceptos_Click_1(object sender, EventArgs e)
         {
             bool Estado = Datos.CADEditarDatos.editar_conceptos(idConcepto, txtDescripcionConcepto.Text);
@@ -198,7 +158,6 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
 
             }
         }
-
         private void btnGuardarConceptos_Click_1(object sender, EventArgs e)
         {
             bool Estado = Datos.CADInsertarDatos.insertar_consepto(txtDescripcionConcepto.Text);
@@ -208,9 +167,35 @@ namespace Aplicacion_Comercial.Formularios.Gastos_Varios
                 ocultar_panel_conceptos();
             }
         }
+        private void btnNuevoConcepto_Click(object sender, EventArgs e)
+        {
+
+            mostrar_panel_conceptos();
+            btnGuardarConceptos.Visible = true;
+            btnGuardarCambiosConceptos.Visible = false;
+            txtDescripcionConcepto.Clear();
+        }
+
+        private void mostrar_panel_conceptos()
+        {
+            panelConceptos.Visible = true;
+            panelConceptos.Dock = DockStyle.Fill;
+            panel7.Visible = false;
+            panelConceptos.BringToFront();
+
+        }
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
         private void txtImporte_KeyPress(object sender, KeyPressEventArgs e)
         {
             Logica.BasesPCProgram.separador_de_numeros(txtImporte, e);
+        }
+        private void btnGuardarConceptos_Click(object sender, EventArgs e)
+        {
+         
+           
         }
     }
 }

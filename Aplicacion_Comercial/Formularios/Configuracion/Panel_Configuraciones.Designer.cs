@@ -93,13 +93,13 @@
             this.panel22 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.btnRegresar = new Guna.UI2.WinForms.Guna2Button();
+            this.panel27 = new System.Windows.Forms.Panel();
             this.guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(this.components);
             this.panel23 = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
             this.panel24 = new System.Windows.Forms.Panel();
             this.panel25 = new System.Windows.Forms.Panel();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.panel27 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel17.SuspendLayout();
             this.panel18.SuspendLayout();
@@ -932,6 +932,14 @@
             this.btnRegresar.TabIndex = 17;
             this.btnRegresar.Text = "REGRESAR AL ADMINISTRADOR";
             // 
+            // panel27
+            // 
+            this.panel27.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel27.Location = new System.Drawing.Point(1256, 0);
+            this.panel27.Name = "panel27";
+            this.panel27.Size = new System.Drawing.Size(94, 46);
+            this.panel27.TabIndex = 19;
+            // 
             // guna2DragControl1
             // 
             this.guna2DragControl1.TargetControl = this.panel21;
@@ -992,14 +1000,6 @@
             this.guna2Panel1.Size = new System.Drawing.Size(1162, 553);
             this.guna2Panel1.TabIndex = 22;
             // 
-            // panel27
-            // 
-            this.panel27.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel27.Location = new System.Drawing.Point(1256, 0);
-            this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(94, 46);
-            this.panel27.TabIndex = 19;
-            // 
             // Panel_Configuraciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1019,6 +1019,7 @@
             this.Name = "Panel_Configuraciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Panel_Configuraciones_FormClosing);
             this.Load += new System.EventHandler(this.Panel_Configuraciones_Load);
             this.panel1.ResumeLayout(false);
             this.panel17.ResumeLayout(false);

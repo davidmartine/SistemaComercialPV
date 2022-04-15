@@ -44,57 +44,59 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
             //panel12.Visible = false;
 
         }
-       
-        
-        private void insertar_empresa()
+        public bool validar_Mail(string sMail)
         {
-            try
+            return Regex.IsMatch(sMail, @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$");
+
+        }
+        private void tstSiguiente_y_Guardar_Click_1(object sender, EventArgs e)
+        {
+            if (validar_Mail(txtCorreo.Text) == false)
             {
-                SqlConnection con = new SqlConnection();
-                con.ConnectionString = Conexiones.CADMaestra.conexion;
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd = new SqlCommand("Insertar_Empresa", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Nombre_Empresa", txtNombreEmpresa.Text);
-                cmd.Parameters.AddWithValue("@Impuesto", txtImpuesto.Text);
-                cmd.Parameters.AddWithValue("@Porcentaje_Impuesto",  txtPorcentaje.Text );
-                cmd.Parameters.AddWithValue("@Moneda", txtMoneda.Text);
-                cmd.Parameters.AddWithValue("@Trabaja_con_Impuestos", lblTrabajasconImpuestos.Text);
-                cmd.Parameters.AddWithValue("@Carpeta_para_Copias_de_Seguridad", txtRuta.Text);
-                cmd.Parameters.AddWithValue("@Correo_para_Envio_de_Reporte", txtCorreo.Text);
-                cmd.Parameters.AddWithValue("@Ultima_Fecha_de_Copia_de_Seguridad", "Ninguna");
-                cmd.Parameters.AddWithValue("@Ultima_Fecha_de_Copia_Date", txtFecha.Value);
-                cmd.Parameters.AddWithValue("@Fecuencia_de_Copias", 1);
-                cmd.Parameters.AddWithValue("@Estado", "PENDIENTE");
-                cmd.Parameters.AddWithValue("@Tipo_Empresa", "GENERAL");
-
-                if (txtConLectora.Checked == true)
-                {
-                    cmd.Parameters.AddWithValue("@Modo_de_Busqueda", "LECTORA");
-                }
-
-                if (txtTeclado.Checked == true)
-                {
-                    cmd.Parameters.AddWithValue("@Modo_de_Busqueda", "TECLADO");
-                }
-
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                Imagenempresa.Image.Save(ms, Imagenempresa.Image.RawFormat);
-
-                cmd.Parameters.AddWithValue("@Logo", ms.GetBuffer());
-                cmd.Parameters.AddWithValue("@Pais", txtPais.Text);
-                cmd.Parameters.AddWithValue("@Redondeo_de_Total", "NO");
-
-                cmd.ExecuteNonQuery();
-                con.Close();
+                MessageBox.Show("Dirección de correo electronico no valida, el correo debe tener el formato: nombre@dominio.com, " + " por favor seleccione un correo valido", "Validación de correo electronico", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtCorreo.Focus();
+                txtCorreo.SelectAll();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                if (txtNombreEmpresa.Text != "")
+                {
+                    if (txtRuta.Text != "")
+                    {
+                        //no.Checked == true
+                        if (Swsn.Checked == false)
+                        {
+                            lblTrabajasconImpuestos.Text = "NO";
+                            txtPorcentaje.Text = "0";
+                        }
+                        //si.Checked == true
+                        if (Swsn.Checked == true)
+                        {
+                            lblTrabajasconImpuestos.Text = "SI";
+                        }
+
+                        insertar_empresa();
+                        ingresar_caja();
+                        insertar_comprobantes_por_defecto();
+                        Correo = txtCorreo.Text;
+                        Dispose();
+                        //Hide();
+                        Formularios.Asistente_de_Instalacion_Servidor.Usuarios_Autorizados_al_Sistema frmUsuarioAtorizado = new Usuarios_Autorizados_al_Sistema();
+                        frmUsuarioAtorizado.ShowDialog();
+                        //this.Dispose();
+                    }
+                    else
+                    {
+                        MessageBox.Show("SELECCIONA UNA RUTA PARA GUARDAR LAS COPIAS DE SEGURIDAD", "REGISTRO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+
+                else
+                {
+                    MessageBox.Show("INGRESE UN NOMBRE DE EMPRESA", "REGISTRO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
-
         private void ingresar_caja()
         {
             try
@@ -115,18 +117,17 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 con.Close();
 
 
-            
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,ex.StackTrace);
+                MessageBox.Show(ex.Message, ex.StackTrace);
             }
         }
-
         private void insertar_comprobantes_por_defecto()
         {
-            try 
-            { 
+            try
+            {
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
@@ -194,7 +195,7 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 cmd = new SqlCommand("Insertar_Tiket", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Identificador_Fiscal", "NIT IDENTIFICADOR FICAL DE LA EMPRESA");
-                cmd.Parameters.AddWithValue("@Direccion","CALLE,NUMERO,AVENIDA");
+                cmd.Parameters.AddWithValue("@Direccion", "CALLE,NUMERO,AVENIDA");
                 cmd.Parameters.AddWithValue("@Provincia_Departamento", "CIUDAD-DEPARTAMENTO-PAIS");
                 cmd.Parameters.AddWithValue("@Nombre_de_Moneda", "NOMBRE DE MONEDA");
                 cmd.Parameters.AddWithValue("@Agradecimiento", "AGRADECIMIENTOS");
@@ -221,11 +222,105 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 con.Close();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+        private void insertar_empresa()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Conexiones.CADMaestra.conexion;
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand("Insertar_Empresa", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Nombre_Empresa", txtNombreEmpresa.Text);
+                cmd.Parameters.AddWithValue("@Impuesto", txtImpuesto.Text);
+                cmd.Parameters.AddWithValue("@Porcentaje_Impuesto",  txtPorcentaje.Text );
+                cmd.Parameters.AddWithValue("@Moneda", txtMoneda.Text);
+                cmd.Parameters.AddWithValue("@Trabaja_con_Impuestos", lblTrabajasconImpuestos.Text);
+                cmd.Parameters.AddWithValue("@Carpeta_para_Copias_de_Seguridad", txtRuta.Text);
+                cmd.Parameters.AddWithValue("@Correo_para_Envio_de_Reporte", txtCorreo.Text);
+                cmd.Parameters.AddWithValue("@Ultima_Fecha_de_Copia_de_Seguridad", "NINGUNA");
+                cmd.Parameters.AddWithValue("@Ultima_Fecha_de_Copia_Date", txtFecha.Value);
+                cmd.Parameters.AddWithValue("@Fecuencia_de_Copias", 1);
+                cmd.Parameters.AddWithValue("@Estado", "PENDIENTE");
+                cmd.Parameters.AddWithValue("@Tipo_Empresa", "GENERAL");
+
+                if (txtConLectora.Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@Modo_de_Busqueda", "LECTORA");
+                }
+
+                if (txtTeclado.Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@Modo_de_Busqueda", "TECLADO");
+                }
+
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                Imagenempresa.Image.Save(ms, Imagenempresa.Image.RawFormat);
+
+                cmd.Parameters.AddWithValue("@Logo", ms.GetBuffer());
+                cmd.Parameters.AddWithValue("@Pais", txtPais.Text);
+                cmd.Parameters.AddWithValue("@Redondeo_de_Total", "NO");
+
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void txtConLectora_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (txtConLectora.Checked == true)
+            {
+                txtTeclado.Checked = false;
+            }
+
+            if (txtConLectora.Checked == false)
+            {
+                txtTeclado.Checked = true;
+            }
+        }
+        private void txtTeclado_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (txtTeclado.Checked == true)
+            {
+                txtConLectora.Checked = false;
+            }
+
+            if (txtTeclado.Checked == false)
+            {
+                txtConLectora.Checked = true;
+            }
+        }
+        private void txtPais_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            txtMoneda.SelectedIndex = txtPais.SelectedIndex;
+        }
+        private void lblEditarlogo_Click_1(object sender, EventArgs e)
+        {
+            dlg.InitialDirectory = "";
+            dlg.Filter = "Imagenes|*.jpg;*.png";
+            dlg.FilterIndex = 2;
+            dlg.Title = "Cargador de Imagenes";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                Imagenempresa.BackgroundImage = null;
+                Imagenempresa.Image = new Bitmap(dlg.FileName);
+                Imagenempresa.SizeMode = PictureBoxSizeMode.Zoom;
+                Imagenempresa.Text = Path.GetFileName(dlg.FileName);
+                //Imagenempresa.Visible = false;
+                //Imagenempresa.Visible = false;
+            }
+        }
+
+
         private void label8_Click(object sender, EventArgs e)
         {
             if(folderBrowserDialog1.ShowDialog()== DialogResult.OK)
@@ -234,7 +329,7 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
                 string ruta = txtRuta.Text;
                 if (ruta.Contains(@"C:\"))
                 {
-                    MessageBox.Show("Selecciona un disco diferente al disco C:", "Ruta Invalida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("SELECCIONA UN DISCO DIFERENTE AL DISCO C:", "RUTA INVALIDA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     txtRuta.Text = "";
                 }
                 else
@@ -263,11 +358,7 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
         }
 
         public static string Correo;
-        public bool validar_Mail(string sMail)
-        {
-            return Regex.IsMatch(sMail, @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$");
-
-        }
+       
 
         private void si_CheckedChanged(object sender, EventArgs e)
         {
@@ -278,107 +369,10 @@ namespace Aplicacion_Comercial.Formularios.Asistente_de_Instalacion_Servidor
         {
             panel6.Visible = false;
         }
-        private void lblEditarlogo_Click_1(object sender, EventArgs e)
-        {
-            dlg.InitialDirectory = "";
-            dlg.Filter = "Imagenes|*.jpg;*.png";
-            dlg.FilterIndex = 2;
-            dlg.Title = "Cargador de Imagenes";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                Imagenempresa.BackgroundImage = null;
-                Imagenempresa.Image = new Bitmap(dlg.FileName);
-                Imagenempresa.SizeMode = PictureBoxSizeMode.Zoom;
-                Imagenempresa.Text = Path.GetFileName(dlg.FileName);
-                //Imagenempresa.Visible = false;
-                //Imagenempresa.Visible = false;
-            }
-        }
-
-        private void txtPais_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            txtMoneda.SelectedIndex = txtPais.SelectedIndex;
-        }
 
         private void txtImpuesto1_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtPorcentaje.SelectedIndex = txtImpuesto.SelectedIndex;
-        }
-
-        private void tstSiguiente_y_Guardar_Click_1(object sender, EventArgs e)
-        {
-            if (validar_Mail(txtCorreo.Text) == false)
-            {
-                MessageBox.Show("Dirección de correo electronico no valida, el correo debe tener el formato: nombre@dominio.com, " + " por favor seleccione un correo valido", "Validación de correo electronico", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtCorreo.Focus();
-                txtCorreo.SelectAll();
-            }
-            else
-            {
-                if (txtNombreEmpresa.Text != "")
-                {
-                    if (txtRuta.Text != "")
-                    {
-                        //no.Checked == true
-                        if (Swsn.Checked == false)
-                        {
-                            lblTrabajasconImpuestos.Text = "NO";
-                            txtPorcentaje.Text = "0";
-                        }
-                        //si.Checked == true
-                        if (Swsn.Checked == true)
-                        {
-                            lblTrabajasconImpuestos.Text = "SI";
-                        }
-
-                        insertar_empresa();
-                        ingresar_caja();
-                        insertar_comprobantes_por_defecto();
-                        Correo = txtCorreo.Text;
-                        Dispose();
-                        //Hide();
-                        Formularios.Asistente_de_Instalacion_Servidor.Usuarios_Autorizados_al_Sistema frmUsuarioAtorizado = new Usuarios_Autorizados_al_Sistema();
-                        frmUsuarioAtorizado.ShowDialog();
-                        //this.Dispose();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Selecciona una ruta para guardar las copias de seguridad", "REGISTRO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-
-                else
-                {
-                    MessageBox.Show("Insegre un nombre de Empresa", "REGISTRO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
-        private void txtConLectora_CheckedChanged_1(object sender, EventArgs e)
-        {
-               if (txtConLectora.Checked == true)
-                {
-                    txtTeclado.Checked = false;
-                }
-
-                if (txtConLectora.Checked == false)
-                {
-                    txtTeclado.Checked = true;
-                }
-        }
-
-        private void txtTeclado_CheckedChanged_1(object sender, EventArgs e)
-        {
-            
-                if (txtTeclado.Checked == true)
-                {
-                    txtConLectora.Checked = false;
-                }
-
-                if (txtTeclado.Checked == false)
-                {
-                    txtConLectora.Checked = true;
-                }  
         }
 
         private void Swsn_CheckedChanged(object sender, EventArgs e)

@@ -30,7 +30,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
         private string NombreUsuario;
         private void CierreTurno_Load(object sender, EventArgs e)
         {
-            lblDeberiaHaber.Text =Convert.ToString(Formularios.Caja.Cierre_de_Caja.DineroCaja);
+            lblDeberiaHaber.Text = Formularios.Caja.Cierre_de_Caja.DineroCaja.ToString();
             DineroCalculado =Convert.ToDouble(lblDeberiaHaber.Text);
             Mostrar_Correo();
             Mostrar_estado_envio();
@@ -47,7 +47,6 @@ namespace Aplicacion_Comercial.Formularios.Caja
 
             }
         }
-
         private void Mostrar_estado_envio()
         {
             DataTable dt = new DataTable();
@@ -80,7 +79,6 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 checkCorreo.Checked = false;
             }
         }
-
         private void txtHay_TextChanged(object sender, EventArgs e)
         {
             Calcular();
@@ -112,7 +110,6 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 lblAnuncio.Visible = true;
             }
         }
-
         private void Calcular()
         {
             try
@@ -124,7 +121,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
                     Hay = 0;
                 }
                 Resultado = Hay - DineroCalculado;
-                lblDiferencia.Text = Convert.ToString(Resultado);
+                lblDiferencia.Text = Resultado.ToString();
                 ValidacionesCalculado();
             }
             catch (Exception)
@@ -134,7 +131,6 @@ namespace Aplicacion_Comercial.Formularios.Caja
             }
             
         }
-
         private void checkCorreo_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -160,32 +156,9 @@ namespace Aplicacion_Comercial.Formularios.Caja
             Cerrar_mcierra_caja();
 
         }
-
-        private void Reemplazar_html()
-        {
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@VentasTotales",Formularios.Caja.Cierre_de_Caja.VentasTotales.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@Ganancias",Formularios.Caja.Cierre_de_Caja.Ganacias.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@Fecha",DateTime.Now.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@NombreUsuario", NombreUsuario);
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@FondoCaja",Formularios.Caja.Cierre_de_Caja.SaldoQuedaCaja.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@VentasEfectivo",Formularios.Caja.Cierre_de_Caja.VentasEfectivo.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@Pagos", "0");
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@Cobros", "0");
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@IngresosVarios",Formularios.Caja.Cierre_de_Caja.IngresoEfectivo.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@GastosVarios",Formularios.Caja.Cierre_de_Caja.GastoEfectivo.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@Esperado", lblDeberiaHaber.Text);
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@Vefectivo",Formularios.Caja.Cierre_de_Caja.VentasEfectivo.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@VTarjeta",Formularios.Caja.Cierre_de_Caja.VentasTarjeta.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@VCredito",Formularios.Caja.Cierre_de_Caja.VentasCredito.ToString());
-            htmlEnvio.Text = htmlEnvio.Text.Replace("@TVentas", Formularios.Caja.Cierre_de_Caja.VentasTotales.ToString());
-
-
-
-        }
-
         private void Cerrar_mcierra_caja()
         {
-            
+
             Datos.ObtenerDatos.mostrar_inicios_de_sesion(ref idUsuario);
             ObtenerDatos.obtener_id_caja_por_serial(ref idCaja);
 
@@ -198,7 +171,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
             cierrec_parametros.SaldoQuedaEnCaja = 0;
             cierrec_parametros.idUsuario = idUsuario;
             cierrec_parametros.TotalCalculado = DineroCalculado;
-            cierrec_parametros.TotalReal =Convert.ToDouble(txtHay.Text);
+            cierrec_parametros.TotalReal = Convert.ToDouble(txtHay.Text);
             cierrec_parametros.Estado = "CAJA CERRADA";
             cierrec_parametros.Direferencia = Resultado;
             cierrec_parametros.idCaja = idCaja;
@@ -208,10 +181,9 @@ namespace Aplicacion_Comercial.Formularios.Caja
             }
 
         }
-
         private void Enviar_correo()
         {
-            if(checkCorreo.Checked == true)
+            if (checkCorreo.Checked == true)
             {
                 Reemplazar_html();
                 bool Estado;
@@ -232,7 +204,7 @@ namespace Aplicacion_Comercial.Formularios.Caja
                     frmautomatico.ShowDialog();
 
                 }
-                
+
 
             }
             else
@@ -241,7 +213,28 @@ namespace Aplicacion_Comercial.Formularios.Caja
                 Formularios.Copias_BaseDatos.GeneradoAutomatico frmautomatico = new Copias_BaseDatos.GeneradoAutomatico();
                 frmautomatico.ShowDialog();
             }
-            
+
+        }
+        private void Reemplazar_html()
+        {
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@VentasTotales",Formularios.Caja.Cierre_de_Caja.VentasTotales.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@Ganancias",Formularios.Caja.Cierre_de_Caja.Ganacias.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@Fecha",DateTime.Now.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@NombreUsuario", NombreUsuario);
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@FondoCaja",Formularios.Caja.Cierre_de_Caja.SaldoQuedaCaja.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@VentasEfectivo",Formularios.Caja.Cierre_de_Caja.VentasEfectivo.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@Pagos", "0");
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@Cobros", Formularios.Caja.Cierre_de_Caja.CobrosTotales.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@IngresosVarios",Formularios.Caja.Cierre_de_Caja.IngresoEfectivo.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@GastosVarios",Formularios.Caja.Cierre_de_Caja.GastoEfectivo.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@Esperado", lblDeberiaHaber.Text);
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@Vefectivo",Formularios.Caja.Cierre_de_Caja.VentasEfectivo.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@VTarjeta",Formularios.Caja.Cierre_de_Caja.VentasTarjeta.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@VCredito",Formularios.Caja.Cierre_de_Caja.VentasCredito.ToString());
+            htmlEnvio.Text = htmlEnvio.Text.Replace("@TVentas", Formularios.Caja.Cierre_de_Caja.VentasTotales.ToString());
+
+
+
         }
         private void btnCerrarTurno_Click_1(object sender, EventArgs e)
         {

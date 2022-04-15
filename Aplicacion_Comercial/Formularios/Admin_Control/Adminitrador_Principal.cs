@@ -71,6 +71,64 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
 
         }
 
+        private void Obtener_fecha_hoy()
+        {
+            int Year = DateTime.Today.Year;
+            DateTime FechaActual = DateTime.Now;
+            string Mes = FechaActual.ToString("MMMM") + " " + Year.ToString();
+            lblFechaHoy.Text = Mes;
+
+        }
+        private void Reporte_gastos_mes()
+        {
+            DataTable dt = new DataTable();
+            Mes = cmbMesGasto.Text;
+            Datos.ObtenerDatos.Reporte_gastos_mes(ref dt, Year);
+            cmbMesGasto.DisplayMember = "Mes";
+            cmbMesGasto.ValueMember = "Mes";
+            cmbMesGasto.DataSource = dt;
+        }
+        private void Reporte_gastos_por_year()
+        {
+            DataTable dt = new DataTable();
+            Datos.ObtenerDatos.Reporte_gastos_por_year(ref dt);
+            cmbAnioGasto.DisplayMember = "Fecha";
+            cmbAnioGasto.ValueMember = "Fecha";
+            cmbAnioGasto.DataSource = dt;
+
+        }
+        private void Mostrar_productos_mas_vendidos()
+        {
+            ArrayList Cantidad = new ArrayList();
+            ArrayList Producto = new ArrayList();
+            dtProductos = new DataTable();
+            Datos.ObtenerDatos.Mostrar_productos_mas_vendidos(ref dtProductos);
+            foreach (DataRow row in dtProductos.Rows)
+            {
+                Cantidad.Add(row["Cantidad"]);
+                Producto.Add(row["Descripcion"]);
+            }
+            chartProductos.Series[0].Points.DataBindXY(Producto, Cantidad);
+
+        }
+
+        private void Reporte_ganancias_fecha()
+        {
+            Datos.ObtenerDatos.Reporte_ganancias_fecha(ref GananciasFecha, dtpFechaInicial.Value, dtpFechaFinal.Value);
+            lblTotalGanacias.Text = Moneda + " " + Convert.ToString(GananciasFecha);
+        }
+        private void Reporte_total_ventas_fechas()
+        {
+            Datos.ObtenerDatos.Reporte_total_ventas_fechas(ref TotalVentas, dtpFechaInicial.Value, dtpFechaFinal.Value);
+            lblTotalVentas.Text = Moneda + " " + Convert.ToString(TotalVentas);
+
+        }
+        private void Reporte_total_ventas()
+        {
+            Datos.ObtenerDatos.Reporte_total_ventas(ref TotalVentas);
+            lblTotalVentas.Text = Moneda + " " + Convert.ToString(TotalVentas);
+        }
+
         private void Mostrar_ventas_grafica()
         {
             ArrayList Fecha = new ArrayList();
@@ -105,96 +163,39 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
             Reporte_ganancias_fecha();
         }
 
-        private void Mostrar_productos_mas_vendidos()
+        private void Mostrar_moneda()
         {
-            ArrayList Cantidad = new ArrayList();
-            ArrayList Producto = new ArrayList();
-            dtProductos = new DataTable();
-            Datos.ObtenerDatos.Mostrar_productos_mas_vendidos(ref dtProductos);
-            foreach(DataRow row in dtProductos.Rows)
-            {
-                Cantidad.Add(row["Cantidad"]);
-                Producto.Add(row["Descripcion"]);
-            }
-            chartProductos.Series[0].Points.DataBindXY(Producto,Cantidad);
+            Datos.ObtenerDatos.Mostrar_moneda(ref Moneda);
 
         }
-        private void Reporte_total_ventas_fechas()
+        private void Reporte_cantidad_productos()
         {
-            Datos.ObtenerDatos.Reporte_total_ventas_fechas(ref TotalVentas, dtpFechaInicial.Value, dtpFechaFinal.Value);
-            lblTotalVentas.Text =Moneda + " " +  Convert.ToString(TotalVentas);
+            Datos.ObtenerDatos.Reporte_cantidad_productos(ref CantidadProductos);
+            lblCantidadProductos.Text = Convert.ToString(CantidadProductos);
+        }
+        private void Reporte_cantidad_de_clientes()
+        {
+            Datos.ObtenerDatos.Reporte_cantidad_de_clientes(ref CantidadClientes);
+            lblNumeroClientes.Text = CantidadClientes.ToString();
 
         }
-
-        private void Reporte_gastos_por_year()
+        private void Reporte_productos_bajo_minimo()
         {
-            DataTable dt = new DataTable();
-            Datos.ObtenerDatos.Reporte_gastos_por_year(ref dt);
-            cmbAnioGasto.DisplayMember = "Fecha";
-            cmbAnioGasto.ValueMember = "Fecha";
-            cmbAnioGasto.DataSource = dt;
+            Datos.ObtenerDatos.Reporte_productos_bajo_minimo(ref ProductoMinimo);
+            lblStockBajo.Text = ProductoMinimo.ToString();
 
-        }
-
-        private void Reporte_ganancias_fecha()
-        {
-            Datos.ObtenerDatos.Reporte_ganancias_fecha(ref GananciasFecha, dtpFechaInicial.Value, dtpFechaFinal.Value);
-            lblTotalGanacias.Text = Moneda + " " + Convert.ToString(GananciasFecha);
-        }
-
-        private void Reporte_total_ventas()
-        {
-            Datos.ObtenerDatos.Reporte_total_ventas(ref TotalVentas);
-            lblTotalVentas.Text =Moneda + " " + Convert.ToString(TotalVentas);
         }
         private void Reporte_por_cobrar()
         {
             Datos.ObtenerDatos.Reporte_por_cobrar(ref PorCobrar);
-            lblPorCobrar.Text = Moneda + " " + Convert.ToString(PorCobrar);
+            lblPorCobrar.Text = Moneda + " " + PorCobrar.ToString();
         }
-
         private void Reporte_por_pagar()
         {
             Datos.ObtenerDatos.Reporte_por_pagar(ref PorPagar);
             lblPorPagar.Text = Moneda + " " + Convert.ToString(PorPagar);
 
         }
-
-        private void Reporte_ganancias()
-        {
-            Datos.ObtenerDatos.Reporte_ganacias(ref GanaciasGenerales);
-            lblGanancia.Text = Moneda + " " + Convert.ToString(GanaciasGenerales);
-            lblTotalGanacias.Text = lblGanancia.Text;
-
-        }
-
-
-        private void Reporte_productos_bajo_minimo()
-        {
-            Datos.ObtenerDatos.Reporte_productos_bajo_minimo(ref ProductoMinimo);
-            lblStockBajo.Text = Convert.ToString(ProductoMinimo);
-
-        }
-
-        private void Reporte_cantidad_de_clientes()
-        {
-            Datos.ObtenerDatos.Reporte_cantidad_de_clientes(ref CantidadClientes);
-            lblNumeroClientes.Text = Convert.ToString(CantidadClientes);
-
-        }
-
-        private void Reporte_cantidad_productos()
-        {
-            Datos.ObtenerDatos.Reporte_cantidad_productos(ref CantidadProductos);
-            lblCantidadProductos.Text = Convert.ToString(CantidadProductos);
-        }
-
-        private void Mostrar_moneda()
-        {
-            Datos.ObtenerDatos.Mostrar_moneda(ref Moneda);
-
-        }
-
         private void Validar_licencia()
         {
             try
@@ -226,49 +227,11 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
 
             }
         }
-
-        private void apertura_detalle_de_cierre_caja()
-        {
-            try
-            {
-                SqlConnection con = new SqlConnection();
-                con.ConnectionString = Conexiones.CADMaestra.conexion;
-                con.Open();
-                SqlCommand cmd = new SqlCommand("insertar_DETALLE_cierre_de_caja", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@fechaini", DateTime.Today);
-                cmd.Parameters.AddWithValue("@fechafin", DateTime.Today);
-                cmd.Parameters.AddWithValue("@fechacierre", DateTime.Today);
-                cmd.Parameters.AddWithValue("@ingresos", 0.00);
-                cmd.Parameters.AddWithValue("@egresos", 0.00);
-                cmd.Parameters.AddWithValue("@saldo", 0.00);
-                cmd.Parameters.AddWithValue("@idusuario", idUsuario.Text);
-                cmd.Parameters.AddWithValue("@totalcaluclado", 0.00);
-                cmd.Parameters.AddWithValue("@totalreal", 0.00);
-                cmd.Parameters.AddWithValue("@estado", "CAJA APERTURADA");
-                cmd.Parameters.AddWithValue("@diferencia", 0.00);
-                cmd.Parameters.AddWithValue("@id_caja", lblIdCaja.Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private void pictureBox17_Click(object sender, EventArgs e)
-        {
-            Dispose();
-            Formularios.Configuracion.Panel_Configuraciones frmPanelConfiguracion = new Configuracion.Panel_Configuraciones();
-            frmPanelConfiguracion.ShowDialog();
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             Formularios.Inventario_Kardex.Inventario_Menu frmInventarioMenu = new Inventario_Kardex.Inventario_Menu();
             frmInventarioMenu.ShowDialog();
         }
-
         private void btnConfiguracion_Click(object sender, EventArgs e)
         {
             Formularios.Configuracion.Panel_Configuraciones frmpanel_Configuraciones = new Configuracion.Panel_Configuraciones();
@@ -276,51 +239,22 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
             this.Dispose();
             frmpanel_Configuraciones.ShowDialog();
         }
-
         private void frm_formClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
             Formularios.Admin_Control.Adminitrador_Principal frmAdminitrador_Principal = new Formularios.Admin_Control.Adminitrador_Principal();
             frmAdminitrador_Principal.ShowDialog();
         }
-
-        private void validar_apertura_de_caja()
+        private void pictureBox17_Click(object sender, EventArgs e)
         {
-            try
-            {
-                listar_cierres_de_caja();
-                contar_cierres_de_caja();
-                if (contadorCajas == 0)
-                {
-                    aperturar_detalle_de_cierre_caja();
-                    lblApertura_De_caja = "Nuevo*****";
-                    ingresar_a_ventas();
-
-                }
-                else
-                {
-                    mostrar_movimientos_de_caja_por_serial_y_usuario();
-                    contrar_movimientos_de_caja_por_usuario();
-
-                    if (contador_Movimientos_de_caja == 0)
-                    {
-                        obtener_usuario_que_aperturo_caja();
-                        MessageBox.Show("CONTINUARAS CON EL TURNO DE *" + lblnombredeCajero.Text + "* TODOS LOS REGISTROS SERAN CON ESE USUARIO ", "CAJA APERTURADA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-
-                    lblApertura_De_caja = "Aperturado";
-                    ingresar_a_ventas();
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.StackTrace);
-            }
+            Dispose();
+            Formularios.Configuracion.Panel_Configuraciones frmPanelConfiguracion = new Configuracion.Panel_Configuraciones();
+            frmPanelConfiguracion.ShowDialog();
         }
-
+        private void btnVender_Click(object sender, EventArgs e)
+        {
+            validar_apertura_de_caja();
+        }
         private void listar_cierres_de_caja()
         {
             try
@@ -346,17 +280,13 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
 
 
         }
-
-
         private void contar_cierres_de_caja()
         {
             int x;
-
             x = datalistado_detalle_cierre_de_caja.Rows.Count;
             contadorCajas = (x);
 
         }
-
         private void aperturar_detalle_de_cierre_caja()
         {
             try
@@ -390,7 +320,6 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
                 MessageBox.Show(ex.StackTrace);
             }
         }
-
         private void mostrar_movimientos_de_caja_por_serial_y_usuario()
         {
             try
@@ -411,22 +340,19 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
 
             }
 
 
         }
-
         private void contrar_movimientos_de_caja_por_usuario()
         {
             int x;
-
             x = datalistado_movimientos_validar.Rows.Count;
             contador_Movimientos_de_caja = (x);
 
         }
-
         private void obtener_usuario_que_aperturo_caja()
         {
             try
@@ -439,46 +365,63 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
 
             }
         }
+        private void validar_apertura_de_caja()
+        {
+            try
+            {
+                listar_cierres_de_caja();
+                contar_cierres_de_caja();
+                if (contadorCajas == 0)
+                {
+                    aperturar_detalle_de_cierre_caja();
+                    lblApertura_De_caja = "Nuevo*****";
+                    ingresar_a_ventas();
 
+                }
+                else
+                {
+                    mostrar_movimientos_de_caja_por_serial_y_usuario();
+                    contrar_movimientos_de_caja_por_usuario();
+
+                    if (contador_Movimientos_de_caja == 0)
+                    {
+                        obtener_usuario_que_aperturo_caja();
+                        MessageBox.Show("CONTINUARAS CON EL TURNO DE *" + lblnombredeCajero.Text + "* TODOS LOS REGISTROS SERAN CON ESE USUARIO ", "CAJA APERTURADA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    lblApertura_De_caja = "Aperturado";
+                    ingresar_a_ventas();
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void ingresar_a_ventas()
         {
             if (lblApertura_De_caja == "Nuevo*****")
             {
-
                 this.Dispose();
                 Formularios.Caja.Apertura_de_Caja frmAperturaCaja = new Caja.Apertura_de_Caja();
                 frmAperturaCaja.ShowDialog();
-
-
             }
             else if (lblApertura_De_caja == "Aperturado")
             {
-
                 this.Dispose();
                 Formularios.VENTAS_MENU_PRINCIPAL.Ventas_Menu_Principal frmVentasPrincipal = new VENTAS_MENU_PRINCIPAL.Ventas_Menu_Principal();
                 frmVentasPrincipal.ShowDialog();
-
             }
-
-
         }
-        private void btnVender_Click(object sender, EventArgs e)
-        {
-            validar_apertura_de_caja();
-        }
-
         private void button7_Click(object sender, EventArgs e)
         {
             Formularios.Copias_BaseDatos.Crear_CopiasDB copiasDB = new Copias_BaseDatos.Crear_CopiasDB();
             copiasDB.ShowDialog();
 
         }
-
-        private void btnRestaurarBD_Click(object sender, EventArgs e)
-        {
-            Restaurar_db_express();
-        }
-
         private void Restaurar_db_express()
         {
             fdg.InitialDirectory = "";
@@ -520,7 +463,6 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
                 }
             }
         }
-
         private void Restaurar_db_no_express()
         {
             Servidor = ".";
@@ -549,17 +491,15 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
                 }
             }
         }
-
         private void btnActivarLicencia_Click(object sender, EventArgs e)
         {
             Formularios.Licencias_y_Membresias.Licencias_Membresias frmlicencias = new Licencias_y_Membresias.Licencias_Membresias();
             frmlicencias.ShowDialog();
 
         }
-
         private void checkFiltros_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkFiltros.Checked == true)
+            if (checkFiltros.Checked == true)
             {
                 panelHoy.Visible = false;
                 panelFiltros.Visible = true;
@@ -572,41 +512,31 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
                 Mostrar_ventas_grafica();
             }
         }
-
         private void dtpFechaInicial_ValueChanged(object sender, EventArgs e)
         {
-            
             Mostrar_ventas_grafica_fechas();
         }
-
         private void dtpFechaFinal_ValueChanged(object sender, EventArgs e)
         {
-          
             Mostrar_ventas_grafica_fechas();
         }
-
         private void lblHastaHoy_Click(object sender, EventArgs e)
         {
             Mostrar_ventas_grafica();
-            
-
         }
-
         private void cmbAnioGasto_SelectedIndexChanged(object sender, EventArgs e)
         {
             Reporte_gastos_year();
             Reporte_gastos_mes();
         }
-
-       
         private void Reporte_gastos_year()
         {
             DataTable dt = new DataTable();
-            Year =Convert.ToInt32(cmbAnioGasto.Text);
+            Year = Convert.ToInt32(cmbAnioGasto.Text);
             Datos.ObtenerDatos.Reporte_gastos_year(ref dt, Year);
             ArrayList Monto = new ArrayList();
             ArrayList Descripcion = new ArrayList();
-            foreach(DataRow row in dt.Rows)
+            foreach (DataRow row in dt.Rows)
             {
                 Monto.Add(row["Monto"]);
                 Descripcion.Add(row["Descripcion"]);
@@ -615,52 +545,94 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
 
 
         }
-        private void Reporte_gastos_mes()
-        {
-            DataTable dt = new DataTable();
-            Mes = cmbMesGasto.Text;
-            Datos.ObtenerDatos.Reporte_gastos_mes(ref dt, Year);
-            cmbMesGasto.DisplayMember = "Mes";
-            cmbMesGasto.ValueMember = "Mes";
-            cmbMesGasto.DataSource = dt;
-        }
-
         private void Reporte_gastos_year_mes()
         {
             DataTable dt = new DataTable();
-            Year =Convert.ToInt32(cmbAnioGasto.Text);
+            Year = Convert.ToInt32(cmbAnioGasto.Text);
             Datos.ObtenerDatos.Reporte_gastos_year_mes(ref dt, Year, cmbMesGasto.Text);
             ArrayList Monto = new ArrayList();
             ArrayList Descripcion = new ArrayList();
-            foreach(DataRow row in dt.Rows)
+            foreach (DataRow row in dt.Rows)
             {
                 Monto.Add(row["Monto"]);
                 Descripcion.Add(row["Descripcion"]);
             }
             chartGastosMes.Series[0].Points.DataBindXY(Descripcion, Monto);
         }
-
-
-
         private void cmbMesGasto_SelectedIndexChanged(object sender, EventArgs e)
         {
             Reporte_gastos_year_mes();
         }
-
-        private void Obtener_fecha_hoy()
-        {
-            int Year = DateTime.Today.Year;
-            DateTime FechaActual = DateTime.Now;
-            string Mes = FechaActual.ToString("MMMM") + " " + Year.ToString();
-            lblFechaHoy.Text = Mes;
-
-        }
-
         private void btnReportes_Click(object sender, EventArgs e)
         {
             Formularios.Reportes_Kardex.MenuReportes frmMenuReportes = new Reportes_Kardex.MenuReportes();
             frmMenuReportes.ShowDialog();
 
         }
+        private void Reporte_ganancias()
+        {
+            Datos.ObtenerDatos.Reporte_ganacias(ref GanaciasGenerales);
+            lblGanancia.Text = Moneda + " " + GanaciasGenerales.ToString();
+            lblTotalGanacias.Text = lblGanancia.Text;
+
+        }
+       
+
+        //private void apertura_detalle_de_cierre_caja()
+        //{
+        //    try
+        //    {
+        //        SqlConnection con = new SqlConnection();
+        //        con.ConnectionString = Conexiones.CADMaestra.conexion;
+        //        con.Open();
+        //        SqlCommand cmd = new SqlCommand("insertar_DETALLE_cierre_de_caja", con);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@fechaini", DateTime.Today);
+        //        cmd.Parameters.AddWithValue("@fechafin", DateTime.Today);
+        //        cmd.Parameters.AddWithValue("@fechacierre", DateTime.Today);
+        //        cmd.Parameters.AddWithValue("@ingresos", 0.00);
+        //        cmd.Parameters.AddWithValue("@egresos", 0.00);
+        //        cmd.Parameters.AddWithValue("@saldo", 0.00);
+        //        cmd.Parameters.AddWithValue("@idusuario", idUsuario.Text);
+        //        cmd.Parameters.AddWithValue("@totalcaluclado", 0.00);
+        //        cmd.Parameters.AddWithValue("@totalreal", 0.00);
+        //        cmd.Parameters.AddWithValue("@estado", "CAJA APERTURADA");
+        //        cmd.Parameters.AddWithValue("@diferencia", 0.00);
+        //        cmd.Parameters.AddWithValue("@id_caja", lblIdCaja.Text);
+        //        cmd.ExecuteNonQuery();
+        //        con.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
+
+        
+        
+
+        
+
+        private void btnRestaurarBD_Click(object sender, EventArgs e)
+        {
+            Restaurar_db_express();
+        }
+
+        
+
+        
+
+
+
+
+
+
+
+
+        
+        
+
+        
+        
     }
 }
