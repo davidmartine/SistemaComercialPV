@@ -390,6 +390,121 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             reportViewer3.RefreshReport();
         }
 
+        private void btnVentas_Click_1(object sender, EventArgs e)
+        {
+            PanelReporteVentas.Visible = true;
+            PanelReporteVentas.Dock = DockStyle.Fill;
+            PanelBienvenida.Visible = false;
+            panelProductos.Visible = false;
+            panelCuentas.Visible = false;
 
+            panel4.Enabled = false;
+            panelEmpleado.Visible = false;
+
+            btnVentas.BackColor = Color.FromArgb(33, 85, 168);
+            btnVentas.ForeColor = Color.White;
+            btnCobrar.BackColor = Color.FromArgb(33, 85, 168);
+            btnCobrar.ForeColor = Color.White;
+            btnPagar.BackColor = Color.FromArgb(33, 85, 168);
+            btnPagar.ForeColor = Color.White;
+            btnProductos.BackColor = Color.FromArgb(33, 85, 168);
+            btnProductos.ForeColor = Color.White;
+
+            checkFiltros.Checked = false;
+            panelFiltros.Visible = false;
+        }
+
+        private void btnCobrar_Click_1(object sender, EventArgs e)
+        {
+            PanelReporteVentas.Visible = false;
+            //PanelReporteVentas.Dock = DockStyle.None;
+            PanelBienvenida.Visible = false;
+            panelProductos.Visible = false;
+            panelCuentas.Visible = true;
+            panelCuentas.Dock = DockStyle.Fill;
+
+
+            btnVentas.BackColor = Color.FromArgb(33, 85, 168);
+            btnVentas.ForeColor = Color.White;
+            btnCobrar.BackColor = Color.White;
+            btnCobrar.ForeColor = Color.White;
+            btnPagar.BackColor = Color.FromArgb(33, 85, 168);
+            btnPagar.ForeColor = Color.White;
+            btnProductos.BackColor = Color.FromArgb(33, 85, 168);
+            btnProductos.ForeColor = Color.White;
+            reporte_cuentas_cobrar();
+        }
+
+        private void btnPagar_Click_1(object sender, EventArgs e)
+        {
+            PanelReporteVentas.Visible = false;
+            //PanelReporteVentas.Dock = DockStyle.None;
+            PanelBienvenida.Visible = false;
+            panelProductos.Visible = false;
+            panelCuentas.Visible = true;
+            panelCuentas.Dock = DockStyle.Fill;
+
+
+            btnVentas.BackColor = Color.FromArgb(33, 85, 168);
+            btnVentas.ForeColor = Color.White;
+            btnCobrar.BackColor = Color.FromArgb(33, 85, 168);
+            btnCobrar.ForeColor = Color.White;
+            btnPagar.BackColor = Color.FromArgb(33, 85, 168);
+            btnPagar.ForeColor = Color.White;
+            btnProductos.BackColor = Color.FromArgb(33, 85, 168);
+            btnProductos.ForeColor = Color.White;
+            reporte_cuentas_pagar();
+        }
+
+        private void btnProductos_Click_1(object sender, EventArgs e)
+        {
+            PanelReporteVentas.Visible = false;
+            //PanelReporteVentas.Dock = DockStyle.None;
+            PanelBienvenida.Visible = false;
+            panelProductos.Visible = true;
+            panelProductos.Dock = DockStyle.Fill;
+            panelCuentas.Visible = false;
+            //panelCuentas.Dock = DockStyle.Fill;
+
+
+            btnVentas.BackColor = Color.FromArgb(33, 85, 168);
+            btnVentas.ForeColor = Color.White;
+            btnCobrar.BackColor = Color.FromArgb(33, 85, 168);
+            btnCobrar.ForeColor = Color.White;
+            btnPagar.BackColor = Color.FromArgb(33, 85, 168);
+            btnPagar.ForeColor = Color.White;
+            btnProductos.BackColor = Color.FromArgb(33, 85, 168);
+            btnProductos.ForeColor = Color.White;
+
+            pInventario.Visible = false;
+            pProductoV.Visible = false;
+            pStockBajo.Visible = false;
+            reportViewer3.Visible = false;
+        }
+
+        private void btnInventario_Click_1(object sender, EventArgs e)
+        {
+            pInventario.Visible = true;
+            pProductoV.Visible = false;
+            pStockBajo.Visible = false;
+            reportViewer3.Visible = true;
+            imprimir_inventarios_todos();
+        }
+
+        private void btnProductosVencidos_Click_1(object sender, EventArgs e)
+        {
+            pInventario.Visible = false;
+            pProductoV.Visible = true;
+            pStockBajo.Visible = false;
+            mostrar_productos_vencidos();
+        }
+
+        private void btnStockBajo_Click_1(object sender, EventArgs e)
+        {
+            pInventario.Visible = false;
+            pProductoV.Visible = false;
+            pStockBajo.Visible = true;
+            mostrar_inventarios_bajo_minimo();
+        }
     }
 }

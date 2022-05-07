@@ -42,15 +42,12 @@ namespace Aplicacion_Comercial.Formularios.Ingresos_Varios
 
         private void limpiar_incio()
         {
-            
-
           //  this.Size = new System.Drawing.Size(914, 666);
             chbComprobante.Checked = true;
             panelComprobante.Visible = false;
             txtImporte.Clear();
             txtDetalle.Clear();
             txtNumeroComprobante.Clear();
-
         }
         private void chbComprobante_CheckedChanged(object sender, EventArgs e)
         {

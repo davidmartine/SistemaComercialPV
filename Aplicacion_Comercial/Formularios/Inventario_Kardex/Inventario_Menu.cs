@@ -13,12 +13,34 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
 {
     public partial class Inventario_Menu : Form
     {
+        public static int idProducto;
         public Inventario_Menu()
         {
             InitializeComponent();
         }
-        public static int idProducto;
+        
+        private void Inventario_Menu_Load(object sender, EventArgs e)
+        {
+            panelMovimientos.Dock = DockStyle.None;
+            panelReportesInventarios.Dock = DockStyle.None;
+            panelInventarioBajo.Dock = DockStyle.None;
+            panelMovimientos.Visible = false;
+            panelReportesInventarios.Visible = false;
+            panelInventarioBajo.Visible = false;
+            panelKardex.Visible = true;
+            panelKardex.Dock = DockStyle.Fill;
+            panelVP.Visible = false;
+            panelVencimientoProductos.Visible = false;
+            panelVencimientoProductos.Dock = DockStyle.None;
 
+            panelK.Visible = true;
+            panelM.Visible = false;
+            panelIB.Visible = false;
+            panelRI.Visible = false;
+            panelVP.Visible = false;
+
+            txtbuscarKardexMovimientos.Text = "Buscar Producto";
+        }
 
         public void buscarProductosMovimientos()
         {
@@ -58,7 +80,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -71,7 +93,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Mostrar_Inventarios_Bajo_Minimo", con);
                 da.Fill(dt);
                 datalistadoInventariosBajo.DataSource = dt;
@@ -87,7 +108,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
         private void txtbuscarMovimiento_TextChanged(object sender, EventArgs e)
@@ -103,8 +124,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
         }
         //variable publica para realizar llamados en reporte
-       
-
         private void datalistadoProductosMovimientos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //idProducto=Convert.ToInt32( datalistadoProductosMovimientos.SelectedCells[1].Value.ToString());
@@ -117,7 +136,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -130,14 +149,12 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Buscar_Movimientos_Kardex", con);
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand.Parameters.AddWithValue("@idProducto", datalistadoProductosMovimientos.SelectedCells[1].Value.ToString());
                 da.Fill(dt);
                 datalistadoMovimientos.DataSource = dt;
                 con.Close();
-
                 datalistadoMovimientos.Columns[0].Visible = false;
                 datalistadoMovimientos.Columns[10].Visible = false;
                 datalistadoMovimientos.Columns[11].Visible = false;
@@ -146,13 +163,10 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
 
         }
-
-        
-
         private void buscarMovimientosFiltros()
         {
             try
@@ -162,17 +176,14 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Buscar_Movimientos_Kardex_Filtros", con);
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand.Parameters.AddWithValue("@Fecha", txtfechaM.Value);
                 da.SelectCommand.Parameters.AddWithValue("@Tipo", txtTipoMovi.Text);
                 da.SelectCommand.Parameters.AddWithValue("@idUsuario", txtidUsuario.Text);
-
                 da.Fill(dt);
                 datalistadoMovimientos.DataSource = dt;
                 con.Close();
-
                 datalistadoMovimientos.Columns[0].Visible = false;
                 datalistadoMovimientos.Columns[10].Visible = false;
                 datalistadoMovimientos.Columns[11].Visible = false;
@@ -185,10 +196,9 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
-
         private void buscarMovimientosFiltrosAcumulados()
         {
             try
@@ -198,21 +208,17 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Buscar_Movimientos_Kardex_Filtos_Acumulados", con);
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand.Parameters.AddWithValue("@Fecha", txtfechaM.Value);
                 da.SelectCommand.Parameters.AddWithValue("@Tipo", txtTipoMovi.Text);
                 da.SelectCommand.Parameters.AddWithValue("@idUsuario", txtidUsuario.Text);
-
                 da.Fill(dt);
                 datalistadoMovimientoAcumuladoProducto.DataSource = dt;
                 con.Close();
-
                 datalistadoMovimientoAcumuladoProducto.Columns[4].Visible = false;
                 datalistadoMovimientoAcumuladoProducto.Columns[5].Visible = false;
                 datalistadoMovimientoAcumuladoProducto.Columns[6].Visible = false;
-
                 Logica.BasesPCProgram.Multilinea(ref datalistadoMovimientoAcumuladoProducto);
                 DataGridViewCellStyle styCabecera = new DataGridViewCellStyle();
                 styCabecera.BackColor = System.Drawing.Color.FromArgb(26, 115, 232);
@@ -222,11 +228,9 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
-
-
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             groupBox1.Visible = true;
@@ -239,7 +243,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             toolStripMenuItem4.Visible = false;
 
         }
-
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             Formularios.Reportes_Kardex.Reportes_Kardex_Diseño.frmMovimientosBuscar frmMoviBusqueda = new Reportes_Kardex.Reportes_Kardex_Diseño.frmMovimientosBuscar();
@@ -308,7 +311,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
                 resultado = "";
             }
 
@@ -339,7 +342,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 MessageBox.Show(ex.StackTrace);
             }
         }
-
         //llmado al reporte
         Formularios.Reportes_Kardex.Reportes_Kardex_Diseño.ReporteKardexMovimientos rptKardexMovimientos = new Reportes_Kardex.Reportes_Kardex_Diseño.ReporteKardexMovimientos();
         private void mostrarKardexMovimientos()
@@ -366,33 +368,12 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
         //metodo de mostrar inventrios  stock bajo 
 
-        private void Inventario_Menu_Load(object sender, EventArgs e)
-        {
-            panelMovimientos.Dock = DockStyle.None;
-            panelReportesInventarios.Dock = DockStyle.None;
-            panelInventarioBajo.Dock = DockStyle.None;
-            panelMovimientos.Visible = false;
-            panelReportesInventarios.Visible = false;
-            panelInventarioBajo.Visible = false;
-            panelKardex.Visible = true;
-            panelKardex.Dock = DockStyle.Fill;
-            panelVP.Visible = false;
-            panelVencimientoProductos.Visible = false;
-            panelVencimientoProductos.Dock = DockStyle.None;
-
-            panelK.Visible = true;
-            panelM.Visible = false;
-            panelIB.Visible = false;
-            panelRI.Visible = false;
-            panelVP.Visible = false;
-
-            txtbuscarKardexMovimientos.Text = "Buscar Producto";
-        }
+       
         private void inventariosVajosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelMovimientos.Dock = DockStyle.None;
@@ -413,7 +394,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             panelVencimientoProductos.Dock = DockStyle.None;
             mostrarInventariosBajoMinimo();
         }
-
         private void txtbuscasrInventarios_TextChanged(object sender, EventArgs e)
         {
             if(txtbuscasrInventarios.Text != "BUSCAR...")
@@ -421,7 +401,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 mostrarInventariosTodos();
             }
         }
-
         //metodo para conocer la cantidad de los productos
         internal void sumarCostodeInventarioContarProudctos()
         {
@@ -460,7 +439,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             catch (Exception ex)
             {
                 con.Close();
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
                 lblcostoinventario.Text = resultado + " " + 0;
             }
 
@@ -478,7 +457,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             catch (Exception ex)
             {
                 con.Close();
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
                 conteoresultado = "";
                 lblcantidaddeproductoseninventario.Text = "0";
             }
@@ -493,31 +472,22 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Mostrar_Inventarios_Todos", con);
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand.Parameters.AddWithValue("@Letra", txtbuscasrInventarios.Text);
-
                 da.Fill(dt);
                 datalistadoinventarioreportes.DataSource = dt;
                 con.Close();
-
-
                 datalistadoinventarioreportes.Columns[0].Visible = false;
                 datalistadoinventarioreportes.Columns[9].Visible = false;
                 datalistadoinventarioreportes.Columns[10].Visible = false;
-
                 Logica.BasesPCProgram.Multilinea(ref datalistadoinventarioreportes);
-                 
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
-
-
-
         private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelRI.Visible = true;
@@ -553,11 +523,8 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 buscarProductosVencidos();
                 checkporVenceren30Dias.Checked = false;
                 checkProductosVencidosTodos.Checked = false;
-
-
             }
         }
-
         //METODO PARA  BUSCAR LOS PRODUCTOS VENCIDOS
         private void buscarProductosVencidos()
         {
@@ -568,27 +535,23 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Buscar_Productos_Vencidos", con);
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand.Parameters.AddWithValue("@Letra", txtbuscarVencimiento.Text);
                 da.Fill(dt);
                 datalistadoVencimientos.DataSource = dt;
                 con.Close();
-
                 datalistadoVencimientos.Columns[0].Visible = false;
                 datalistadoVencimientos.Columns[1].Visible = false;
                 datalistadoVencimientos.Columns[6].Visible = false;
                 datalistadoVencimientos.Columns[7].Visible = false;
-
                 Logica.BasesPCProgram.Multilinea(ref datalistadoVencimientos);
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
-
         private void txtbuscarVencimiento_Click(object sender, EventArgs e)
         {
             txtbuscarVencimiento.SelectAll();
@@ -609,20 +572,17 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Mostrar_Productos_Vencidos_En_Menos_De_30Dias", con);
                 da.Fill(dt);
                 datalistadoVencimientos.DataSource = dt;
                 con.Close();
-
                 datalistadoVencimientos.Columns[0].Visible = false;
                 datalistadoVencimientos.Columns[1].Visible = false;
-
                 Logica.BasesPCProgram.Multilinea(ref datalistadoVencimientos);
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -641,15 +601,12 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Mostrar_Productos_Vencidos", con);
                 da.Fill(dt);
                 datalistadoVencimientos.DataSource = dt;
                 con.Close();
-
                 datalistadoVencimientos.Columns[0].Visible = false;
                 datalistadoVencimientos.Columns[1].Visible = false;
-
                 Logica.BasesPCProgram.Multilinea(ref datalistadoVencimientos);
             }
             catch(Exception ex)
@@ -690,7 +647,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             panelVP.Visible = false;
             panelMovimientos.Visible = true;
             panelReportesInventarios.Visible = false;
-
             panelMovimientos.Dock = DockStyle.Fill;
             panelReportesInventarios.Dock = DockStyle.None;
             panelInventarioBajo.Dock = DockStyle.None;
@@ -752,14 +708,12 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Conexiones.CADMaestra.conexion;
                 con.Open();
-
                 da = new SqlDataAdapter("Buscar_Productos_Kardex", con);
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand.Parameters.AddWithValue("@letrab", txtbuscarKardexMovimientos.Text);
                 da.Fill(dt);
                 datalistadoProductos.DataSource = dt;
                 con.Close();
-
                 datalistadoProductos.Columns[1].Visible = false;
                 //datalistadoProductos.Columns[2].Visible = false;
                 datalistadoProductos.Columns[3].Visible = false;
@@ -781,7 +735,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -796,14 +750,10 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             datalistadoProductos.Visible = false;
             mostrarKardexMovimientos();
         }
-        
-
         private void datalistadoProductosMovimientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
-        
 
         //variables publicas estaticas para realizar llamado al reporte filtrado
         public static string tipo_de_movimiento;

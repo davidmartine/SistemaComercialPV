@@ -292,6 +292,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnProductos.TabIndex = 5;
             this.btnProductos.Text = "PRODUCTOS";
             this.btnProductos.UseVisualStyleBackColor = true;
+            this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click_1);
             // 
             // btnPagar
             // 
@@ -306,6 +307,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnPagar.TabIndex = 4;
             this.btnPagar.Text = "CUENTAS POR PAGAR";
             this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click_1);
             // 
             // btnCobrar
             // 
@@ -320,6 +322,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnCobrar.TabIndex = 3;
             this.btnCobrar.Text = "CUENTAS POR COBRAR";
             this.btnCobrar.UseVisualStyleBackColor = true;
+            this.btnCobrar.Click += new System.EventHandler(this.btnCobrar_Click_1);
             // 
             // btnVentas
             // 
@@ -334,6 +337,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnVentas.TabIndex = 2;
             this.btnVentas.Text = "VENTAS";
             this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click_1);
             // 
             // panel2
             // 
@@ -672,6 +676,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnInventario.TabIndex = 0;
             this.btnInventario.Text = "INVENTARIO";
             this.btnInventario.UseVisualStyleBackColor = true;
+            this.btnInventario.Click += new System.EventHandler(this.btnInventario_Click_1);
             // 
             // btnProductosVencidos
             // 
@@ -686,6 +691,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnProductosVencidos.TabIndex = 1;
             this.btnProductosVencidos.Text = "PRODUCTOS VENCIDOS";
             this.btnProductosVencidos.UseVisualStyleBackColor = true;
+            this.btnProductosVencidos.Click += new System.EventHandler(this.btnProductosVencidos_Click_1);
             // 
             // btnStockBajo
             // 
@@ -700,6 +706,7 @@ namespace Aplicacion_Comercial.Formularios.Reportes_Kardex
             this.btnStockBajo.TabIndex = 2;
             this.btnStockBajo.Text = "STOCK BAJO";
             this.btnStockBajo.UseVisualStyleBackColor = true;
+            this.btnStockBajo.Click += new System.EventHandler(this.btnStockBajo_Click_1);
             // 
             // guna2DragControl1
             // 

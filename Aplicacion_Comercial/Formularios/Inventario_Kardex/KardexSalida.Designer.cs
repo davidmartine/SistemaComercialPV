@@ -93,6 +93,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             this.datalistadoProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datalistadoProductos.Size = new System.Drawing.Size(667, 430);
             this.datalistadoProductos.TabIndex = 24;
+            this.datalistadoProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datalistadoProductos_CellClick);
             // 
             // Eli
             // 
@@ -333,6 +334,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             this.txtCantidad.Size = new System.Drawing.Size(271, 32);
             this.txtCantidad.TabIndex = 26;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // txtBuscarProducto
             // 

@@ -57,7 +57,6 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             datalistadoProductos.Columns[14].Visible = false;
             datalistadoProductos.Columns[15].Visible = false;
             datalistadoProductos.Columns[16].Visible = false;
-
             Logica.BasesPCProgram.Multilinea(ref datalistadoProductos);
         }
 
@@ -123,7 +122,10 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 MessageBox.Show("REGISTRO REALIZADO CORRECTAMENTE");
             }
         }
-
+        private void btnGuardar_Click_1(object sender, EventArgs e)
+        {
+            validaciones();
+        }
         private void validaciones()
         {
             if (!string.IsNullOrEmpty(txtAgregar.Text))
@@ -179,25 +181,17 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 
             }
         }
-
-        private void txtBuscarProducto_TextChanged_1(object sender, EventArgs e)
-        {
-            buscar_productos_kardex();
-        }
-
         private void txtAgregar_TextChanged_1(object sender, EventArgs e)
         {
             calcular();
         }
-
         private void txtCosto_TextChanged_1(object sender, EventArgs e)
         {
             calcular();
         }
-
-        private void btnGuardar_Click_1(object sender, EventArgs e)
+        private void txtBuscarProducto_TextChanged_1(object sender, EventArgs e)
         {
-            validaciones();
-        }
+            buscar_productos_kardex();
+        } 
     }
 }

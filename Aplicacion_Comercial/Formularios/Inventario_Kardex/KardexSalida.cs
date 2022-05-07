@@ -14,6 +14,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
 {
     public partial class KardexSalida : Form
     {
+        private double CantidadActual;
         public KardexSalida()
         {
             InitializeComponent();
@@ -24,11 +25,9 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
         {
 
         }
-
-
         private void txtBuscarProducto_TextChanged(object sender, EventArgs e)
         {
-            
+            buscar_productos_kardex();
         }
 
         private void buscar_productos_kardex()
@@ -52,13 +51,12 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             datalistadoProductos.Columns[14].Visible = false;
             datalistadoProductos.Columns[15].Visible = false;
             datalistadoProductos.Columns[16].Visible = false;
-
             Logica.BasesPCProgram.Multilinea(ref datalistadoProductos);
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
+            validaciones();
         }
 
         private void validaciones()
@@ -86,7 +84,26 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 txtCantidad.Focus();
             }
         }
-
+        private void btnGuardar_Click_1(object sender, EventArgs e)
+        {
+            validaciones();
+        }
+        private void insertar_kardex_salida()
+        {
+            LKardex kardex = new LKardex();
+            CADInsertarDatos datos = new CADInsertarDatos();
+            kardex.Fecha = dtpFechaRegistro.Value;
+            kardex.Motivo = txtMotivo.Text;
+            kardex.Cantidad = Convert.ToDouble(txtCantidad.Text);
+            kardex.idProducto = idProdducto;
+            if (datos.insertar_kardex_salida(kardex) == true)
+            {
+                txtBuscarProducto.Clear();
+                txtBuscarProducto.Focus();
+                datalistadoProductos.Visible = true;
+                MessageBox.Show("REGISTRO REALIZADO CORRECTAMENTE");
+            }
+        }
         private void disminuir_stock()
         {
             LProductos productos = new LProductos();
@@ -98,32 +115,28 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
                 insertar_kardex_salida();
             }
         }
-
-        private void insertar_kardex_salida()
-        {
-            LKardex kardex = new LKardex();
-            CADInsertarDatos datos = new CADInsertarDatos();
-            kardex.Fecha = dtpFechaRegistro.Value;
-            kardex.Motivo = txtMotivo.Text;
-            kardex.Cantidad =Convert.ToDouble(txtCantidad.Text);
-            kardex.idProducto = idProdducto;
-            if (datos.insertar_kardex_salida(kardex) == true)
-            {
-                txtBuscarProducto.Clear();
-                txtBuscarProducto.Focus();
-                datalistadoProductos.Visible = true;
-                MessageBox.Show("REGISTRO REALIZADO CORRECTAMENTE");
-            }
-        }
-
         private void txtBuscarProducto_TextChanged_1(object sender, EventArgs e)
         {
             buscar_productos_kardex();
         }
-
-        private void btnGuardar_Click_1(object sender, EventArgs e)
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            validaciones();
+          //  Logica.BasesPCProgram.separador_de_numeros(txtCantidad, e); ;
         }
+        private void datalistadoProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ObtenetDatos();
+        }
+        private void ObtenetDatos()
+        {
+            idProdducto = Convert.ToInt32(datalistadoProductos.SelectedCells[1].Value);
+            CantidadActual = Convert.ToDouble(datalistadoProductos.SelectedCells[6].Value);
+            lblCantidadActual.Text = CantidadActual.ToString();
+            txtMotivo.Clear();
+            txtMotivo.Clear();
+            txtBuscarProducto.Text = datalistadoProductos.SelectedCells[2].Value.ToString();
+            datalistadoProductos.Visible = false; ;
+        }
+
     }
 }
