@@ -401,11 +401,10 @@
             // panelMovimientos
             // 
             this.panelMovimientos.BackColor = System.Drawing.Color.White;
-            this.panelMovimientos.Controls.Add(this.panel12);
             this.panelMovimientos.Controls.Add(this.panel13);
+            this.panelMovimientos.Controls.Add(this.panel12);
             this.panelMovimientos.Controls.Add(this.panel10);
-            this.panelMovimientos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMovimientos.Location = new System.Drawing.Point(0, 137);
+            this.panelMovimientos.Location = new System.Drawing.Point(753, 160);
             this.panelMovimientos.Name = "panelMovimientos";
             this.panelMovimientos.Size = new System.Drawing.Size(1350, 592);
             this.panelMovimientos.TabIndex = 2;
@@ -416,7 +415,7 @@
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(0, 131);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(966, 461);
+            this.panel12.Size = new System.Drawing.Size(1350, 461);
             this.panel12.TabIndex = 2;
             // 
             // datalistadoMovimientos
@@ -441,7 +440,7 @@
             this.datalistadoMovimientos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.datalistadoMovimientos.RowTemplate.Height = 30;
             this.datalistadoMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datalistadoMovimientos.Size = new System.Drawing.Size(966, 461);
+            this.datalistadoMovimientos.Size = new System.Drawing.Size(1350, 461);
             this.datalistadoMovimientos.TabIndex = 4;
             // 
             // Eli
@@ -825,7 +824,7 @@
             this.panelInventarioBajo.BackColor = System.Drawing.Color.White;
             this.panelInventarioBajo.Controls.Add(this.datalistadoInventariosBajo);
             this.panelInventarioBajo.Controls.Add(this.panel15);
-            this.panelInventarioBajo.Location = new System.Drawing.Point(670, 365);
+            this.panelInventarioBajo.Location = new System.Drawing.Point(603, 312);
             this.panelInventarioBajo.Name = "panelInventarioBajo";
             this.panelInventarioBajo.Size = new System.Drawing.Size(532, 152);
             this.panelInventarioBajo.TabIndex = 3;
@@ -1247,7 +1246,7 @@
             this.panelKardex.Controls.Add(this.datalistadoProductos);
             this.panelKardex.Controls.Add(this.reportViewer1);
             this.panelKardex.Controls.Add(this.panel5);
-            this.panelKardex.Location = new System.Drawing.Point(31, 157);
+            this.panelKardex.Location = new System.Drawing.Point(0, 160);
             this.panelKardex.Name = "panelKardex";
             this.panelKardex.Size = new System.Drawing.Size(566, 239);
             this.panelKardex.TabIndex = 6;

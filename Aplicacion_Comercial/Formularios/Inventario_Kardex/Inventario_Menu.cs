@@ -383,6 +383,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             panelReportesInventarios.Visible = false;
             panelInventarioBajo.Visible = true;
             panelInventarioBajo.Dock = DockStyle.Fill;
+            panelInventarioBajo.BringToFront();
             panelKardex.Visible = false;
             panelKardex.Dock = DockStyle.None;
             panelK.Visible = false;
@@ -500,6 +501,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             panelInventarioBajo.Visible = false;
             panelMovimientos.Dock = DockStyle.None;
             panelReportesInventarios.Dock = DockStyle.Fill;
+            panelReportesInventarios.BringToFront();
             panelInventarioBajo.Dock = DockStyle.None;
             panelKardex.Visible = false;
             panelKardex.Dock = DockStyle.None;
@@ -631,6 +633,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             panelInventarioBajo.Visible = false;
             panelKardex.Visible = true;
             panelKardex.Dock = DockStyle.Fill;
+            panelKardex.BringToFront();
             panelVencimientoProductos.Visible = false;
             panelVencimientoProductos.Dock = DockStyle.None;
             panelVP.Visible = false;
@@ -681,6 +684,7 @@ namespace Aplicacion_Comercial.Formularios.Inventario_Kardex
             panelKardex.Dock = DockStyle.None;
             panelVencimientoProductos.Visible = true;
             panelVencimientoProductos.Dock = DockStyle.Fill;
+            panelVencimientoProductos.BringToFront();
             panelVP.Visible = true;
             txtbuscarVencimiento.Text = "Buscar Producto/Codigo";
         }
