@@ -618,21 +618,9 @@ namespace Aplicacion_Comercial.Formularios.Admin_Control
             Restaurar_db_express();
         }
 
-        
+        private void button5_Click(object sender, EventArgs e)
+        {
 
-        
-
-
-
-
-
-
-
-
-        
-        
-
-        
-        
+        }
     }
 }
